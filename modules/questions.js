@@ -37,6 +37,10 @@ class Questions {
       const sql = 'SELECT users.user, questions.*FROM questions, users\
                      WHERE questions.userid = users.id;'
       const questions = await this.db.all(sql)
+      for(const index in questions)
+      {
+        if(questions[index].photo === null) questions[index].photo = 'placeholder.jpg'
+      }
       return questions
     }
 }

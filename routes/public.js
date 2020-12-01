@@ -6,6 +6,7 @@ const router = new Router()
 router.use(bodyParser({multipart: true}))
 
 import Accounts from '../modules/accounts.js'
+import Questions from '../modules/questions.js'
 const dbName = 'website.db'
 
 /**
@@ -15,15 +16,12 @@ const dbName = 'website.db'
  * @route {GET} /
  */
 router.get('/', async ctx => {
+  const questions = await new Questions(dbName)
 	try {
-    if(ctx.hbs.authorised)
-    {
-      return ctx.redirect('/faq?msg=you are logged in')
-    } 
-    else 
-    {
-      return ctx.redirect('login?msg=you are not logged in')
-    }
+    const records = await questions.all()
+    console.log(records)
+    ctx.hbs.records = records
+    await ctx.render('index', ctx.hbs)
 	} catch(err) {
 		await ctx.render('error', ctx.hbs)
 	}
