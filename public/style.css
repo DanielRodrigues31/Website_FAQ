@@ -146,9 +146,9 @@ legend {
 	padding: 0.6vw;
 }
 
-input[type="file"] {
+/*input[type="file"] {
 	display: none;
-}
+}*/
 
 input[type="submit"], header > a, .custom-file-upload {
   background-color: grey;

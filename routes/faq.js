@@ -28,8 +28,13 @@ router.get('/', async ctx => {
 	}
 })
 
-router.get('/add' , async ctx =>{
-  await ctx.render('add', ctx.hbs)
+router.get('/post' , async ctx =>{
+  await ctx.render('post', ctx.hbs)
+})
+
+router.post('/post', async ctx =>{
+  console.log('posting a new question')
+  return ctx.redirect('/faq?msg=new question posted')
 })
 
 export default router
