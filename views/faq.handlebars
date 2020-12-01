@@ -22,7 +22,16 @@
 		{{/if}}
 		<main>
     <table>
-      
+      <tr><th>Name</th><th>Title</th><th>Summary</th><th>Status</th></tr>
+      {{#each records}}
+        <tr>
+          <td>{{this.firstname}} {{this.lastname}}</td>
+          <td>{{this.title}}</td>
+          <td>{{this.summary}}</td>
+          <td>{{this.status}}</td>
+        </tr>
+      {{/each}}
+    </table>
 		</main>
 	</body>
 </html>

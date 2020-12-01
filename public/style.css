@@ -71,8 +71,12 @@ p, legend {
 }
 
 main {
-	width: 100%;
-	margin-left: 3vw;
+	max-width: 800px;
+	margin: auto;
+  margin-top: 2em;
+  padding: 2em;
+  box-sizing: border-box;
+  background-color: lightgray;
 	/* background-color: pink; */
 }
 
@@ -217,20 +221,21 @@ dd {
 table {
 	/* border: 1px solid grey; */
 	border-collapse: collapse;
+  margin: auto;
 }
 
 tr:nth-child(odd) {
 	background: #DDD;
 }
 
-td {
+td, th {
 	/* border: 1px solid grey; */
 	padding: 0.5vw;
 	font-size: 1.5vw;
 	width: 25vw;
 }
 
-td:last-child {
+td:last-child, th:last-child {
 	width: 10vw;
 	text-align: right;
 }

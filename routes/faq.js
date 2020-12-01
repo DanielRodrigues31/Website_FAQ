@@ -20,6 +20,7 @@ router.get('/', async ctx => {
 	try {
     const records = await questions.all()
     console.log(records)
+    ctx.hbs.records = records
 		await ctx.render('faq', ctx.hbs)
 	} catch(err) {
 		ctx.hbs.error = err.message
