@@ -33,8 +33,25 @@ router.get('/post' , async ctx =>{
 })
 
 router.post('/post', async ctx =>{
-  console.log('posting a new question')
-  return ctx.redirect('/faq?msg=new question posted')
+  const questions = await new Questions(dbName)
+  try {
+    ctx.request.body.account = ctx.session.userid
+    if(ctx.request.files.photo.name)
+    {
+      ctx.request.body.filePath = ctx.request.files.photo.path
+      ctx.request.body.fileName = ctx.request.files.photo.name
+      ctx.request.body.fileType = ctx.request.files.photo.type
+    }
+    await questions.post(ctx.request.body)
+    return ctx.redirect('/faq?msg=new question posted')
+    } catch(err) {
+      console.log(err)
+      await ctx.render('error', ctx.hbs)
+    } finally{
+      questions.close()
+    }
+  
+  
 })
 
 export default router

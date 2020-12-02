@@ -1,7 +1,8 @@
  /** @module Questions */
 
 import sqlite from 'sqlite-async'
-
+import mime from 'mime-types'
+import fs from 'fs-extra'
 
 /**
  * Accounts
@@ -19,6 +20,7 @@ class Questions {
 			const sql = 'CREATE TABLE IF NOT EXISTS questions\
 				(id INTEGER PRIMARY KEY AUTOINCREMENT,\
          userid INTEGER,\
+         photo TEXT,\
          firstname TEXT NOT NULL,\
          lastname TEXT NOT NULL,\
          title TEXT,\
@@ -43,6 +45,38 @@ class Questions {
       }
       return questions
     }
+  
+  async post(data)
+  {
+    console.log('POST')
+    console.log(data)
+    let filename
+    try{
+      if(data.fileName)
+      {
+        filename = `${Date.now()}.${mime.extension(data.fileType)}` //current time 
+        console.log(filename)
+        await fs.copy(data.filePath, `public/avatars/${filename}`)
+      }
+      const sql = `INSERT INTO questions(userid, photo, firstname, lastname, title, summary, description)\
+                    Values(${data.account}, "${filename}", "${data.firstname}", "${data.lastname}",\
+                            "${data.title}", "${data.summary}", "${data.description}")`
+      console.log(sql)
+      await this.db.run(sql)
+      return true
+    }
+    catch(err)
+    {
+      console.log(err)
+      throw(err)
+    }
+    
+  }
+  
+  async close()
+  {
+    await this.db.close()
+  }
 }
 
 export default Questions

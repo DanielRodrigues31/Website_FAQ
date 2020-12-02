@@ -32,20 +32,21 @@
         </p>
         <p>
           <label for="title">Title</label><br />
-          <input type="text" name="title" placeholder="Enter title" value=""/>
+          <input type="text" name="title" placeholder="Enter title" value="" required/>
         </p>
         <p>
           <label for="summary">Summary</label><br />
-          <input type="text" name="summary" placeholder="Enter summary" value="" />
+          <input type="text" name="summary" placeholder="Enter summary" value="" required/>
         </p>
         <p>
           <label for="description">Description</label><br />
-          <input type="text" name="description" placeholder="Enter description" value="" />
+          <textarea name="description" placeholder="Enter description" required></textarea>
         </p>
         <p>
-          <label for="picture">Profile picture</label><br />
-          <input type="file" name="picture" accept="image/*" />
+          <label for="photo">Profile photo</label><br />
+          <input type="file" name="photo" accept="image/*" />
         </p>
+        <p><input type="submit" value="Submit"></p>
       </form>
 		</main>
     <a class="post" href="/faq/post">New Question</a> 

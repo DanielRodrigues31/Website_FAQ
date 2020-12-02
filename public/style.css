@@ -136,6 +136,18 @@ fieldset {
 	padding-top: 4vw;
 }
 
+input::required, textarea:required {
+  border-width: 2px;
+}
+
+input required, textarea:invalid{
+  border-color: red;
+}
+
+input required, textarea:valid{
+  border-color: green;
+}
+
 legend {
 	position:absolute;
   top:0;
