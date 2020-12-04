@@ -22,13 +22,14 @@
 		{{/if}}
 		<main>
     <table>
-      <tr><th>Photo</th><th>Title</th><th>Summary</th><th>Description</th></tr>
+      <tr><th>Photo</th><th>Title</th><th>Summary</th><th>Description</th><th>Options</th></tr>
       {{#each records}}
         <tr>
-          <td><img src="public/avatars/{{this.photo}}" /></td>
+          <td><img src="avatars/{{this.photo}}" /></td>
           <td>{{this.title}}</td>
           <td>{{this.summary}}</td>
           <td>{{this.description}}</td>
+          <td><a href="faq/answer/{{this.id}}">answer</a></td>
         </tr>
       {{/each}}
     </table>

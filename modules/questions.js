@@ -46,6 +46,26 @@ class Questions {
       return questions
     }
   
+  async getByID(id)
+  {
+    try 
+    {
+      const sql = `SELECT users.user, questions.* FROM questions, users\ 
+                   WHERE questions.userid = users.id AND questions.id = ${id};`
+      
+      console.log(sql)
+      const question = await this.db.get(sql) //gets sql query
+      if(question.photo === null) question.photo = 'placeholder.jpeg' // if no picture default to this
+      const dateTime = new Date(question.lastcontact * 1000) //converts to from milliseconds
+      const date = `${dateTime.getDate()}/${dateTime.getMonth()+1}/${dateTime.getFullYear()}`
+      question.lastcontact = date // stores as date
+      return question // all fields within a single record
+    } catch(err){
+      console.log(err)
+      throw err
+    }
+  }
+  
   async post(data)
   {
     console.log('POST')

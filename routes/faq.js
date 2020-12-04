@@ -54,4 +54,19 @@ router.post('/post', async ctx =>{
   
 })
 
+router.get('/answer/:id' , async ctx =>{
+  const questions = await new Questions(dbName)
+  try{
+    console.log(`record: ${ctx.params.id}`)
+    ctx.hbs.question = await questions.getByID(ctx.params.id) //adds ID to handlebar 
+    console.log(ctx.hbs)
+    ctx.hbs.id = ctx.params.id
+    await ctx.render('answer', ctx.hbs)
+  } catch(err) {
+    console.log(err)
+    await ctx.render('error', ctx.hbs)
+  }
+  
+})
+
 export default router
