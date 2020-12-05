@@ -20,10 +20,31 @@
 			</aside>
 		{{/if}}
 	<main>
-    <p>Display record {{id}}</p>
+    <table>
+      <tr><th>Title</th><th>Summary</th><th>Description</th></tr>
+        <tr>
+          <td>{{question.title}}</td>
+          <td>{{question.summary}}</td>
+          <td>{{question.description}}</td>
+        </tr>
+    </table>
     </main>
-    <aside class="fixed top left">
+    <main>
+      <form method="post" action="/faq/post/answer" enctype="multipart/form-data">
+        <p>
+          <label for="description">Answer</label><br />
+          <textarea name="answer" placeholder="Enter answer" required></textarea>
+        </p>
+        <p><input type="submit" value="Submit"></p>
+      </form>
+    </main>
+    <main>
+      <table>
+      <tr><th>Answers</th></tr>
+        <tr>
+        </tr>
+    </table>
+    </main>
       <button class="back">Back</button>
-    </aside>
 	</body>
 </html>

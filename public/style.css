@@ -253,5 +253,6 @@ td, th {
 
 td:last-child, th:last-child {
 	width: 10vw;
-	text-align: right;
+	text-align: center;
 }
+
