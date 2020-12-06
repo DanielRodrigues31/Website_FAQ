@@ -36,8 +36,8 @@ class Questions {
   
   async all()
     {
-      const sql = `SELECT users.user, questions.*FROM questions, users\
-                     WHERE questions.userid = users.id;`
+      const sql = 'SELECT users.user, questions.*FROM questions, users\
+                     WHERE questions.userid = users.id;'
       const questions = await this.db.all(sql)
       for(const index in questions)
       {
@@ -52,10 +52,9 @@ class Questions {
     {
       const sql = `SELECT users.user, questions.* FROM questions, users\ 
                    WHERE questions.userid = users.id AND questions.id = ${id};`
-      
       console.log(sql)
       const question = await this.db.get(sql) //gets sql query
-      if(question.photo === null) question.photo = 'placeholder.jpeg' // if no picture default to this
+      //if(question.photo === null) question.photo = 'placeholder.jpeg' // if no picture default to this
       //const dateTime = new Date(question.lastcontact * 1000) //converts to from milliseconds
       //const date = `${dateTime.getDate()}/${dateTime.getMonth()+1}/${dateTime.getFullYear()}`
       //question.lastcontact = date // stores as date

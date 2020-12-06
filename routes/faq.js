@@ -4,6 +4,7 @@ import Router from 'koa-router'
 const router = new Router({ prefix: '/faq' })
 
 import Questions from '../modules/questions.js'
+import Answers from '../modules/answers.js'
 const dbName = 'website.db' 
 
 async function checkAuth(ctx, next) {
@@ -56,9 +57,11 @@ router.post('/post', async ctx =>{
 
 router.get('/answer/:id' , async ctx =>{
   const questions = await new Questions(dbName)
+  const answers = await new Answers(dbName)
   try{
     console.log(`record: ${ctx.params.id}`)
-    ctx.hbs.question = await questions.getByID(ctx.params.id) //adds ID to handlebar 
+    ctx.hbs.question = await questions.getByID(ctx.params.id) //adds question ID to handlebar 
+    ctx.hbs.answer = await answers.getByID(ctx.params.id) //adds answer ID to handlebar 
     console.log(ctx.hbs)
     ctx.hbs.id = ctx.params.id
     await ctx.render('answer', ctx.hbs)
