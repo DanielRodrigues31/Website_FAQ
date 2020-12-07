@@ -54,11 +54,52 @@ class Questions {
                    WHERE questions.userid = users.id AND questions.id = ${id};`
       console.log(sql)
       const question = await this.db.get(sql) //gets sql query
-      //if(question.photo === null) question.photo = 'placeholder.jpeg' // if no picture default to this
-      //const dateTime = new Date(question.lastcontact * 1000) //converts to from milliseconds
-      //const date = `${dateTime.getDate()}/${dateTime.getMonth()+1}/${dateTime.getFullYear()}`
-      //question.lastcontact = date // stores as date
       return question // all fields within a single record
+    } catch(err){
+      console.log(err)
+      throw err
+    }
+  }
+  
+  async getQuestionID(id)
+  {
+    try 
+    {
+      const sql = `SELECT users.user, questions.* FROM questions, users\ 
+                   WHERE questions.userid = users.id AND questions.id = ${id};`
+      console.log(sql)
+      const question = await this.db.get(sql) //gets sql query
+      return question.id // all fields within a single record
+    } catch(err){
+      console.log(err)
+      throw err
+    }
+  }
+  
+  async answered(data)
+  {
+    try
+    {
+      const sql = `UPDATE questions SET status = "answered" WHERE status = "unanswered" AND id = "${data.id}"`
+      console.log(sql)
+      await this.db.get(sql)
+      return true
+      
+    } catch(err){
+      console.log(err)
+      throw err
+    }
+  }
+  
+  async solved(data)
+  {
+    try
+    {
+      const sql = `SELECT Id, REPLACE(status, 'unsolved', ‘solved’) from questions WHERE Id = "${data.id}"`
+      console.log(sql)
+      await this.db.get(sql)
+      return true
+      
     } catch(err){
       console.log(err)
       throw err
@@ -77,9 +118,9 @@ class Questions {
         console.log(filename)
         await fs.copy(data.filePath, `public/avatars/${filename}`)
       }
-      const sql = `INSERT INTO questions(userid, photo, firstname, lastname, title, summary, description)\
+      const sql = `INSERT INTO questions(userid, photo, firstname, lastname, title, summary, description, status)\
                     Values(${data.account}, "${filename}", "${data.firstname}", "${data.lastname}",\
-                            "${data.title}", "${data.summary}", "${data.description}")`
+                            "${data.title}", "${data.summary}", "${data.description}", "unanswered")`
       console.log(sql)
       await this.db.run(sql)
       return true
@@ -91,34 +132,7 @@ class Questions {
     }
     
   }
-  
-  async postans(data)
-  {
-    console.log('POSTANS')
-    console.log(data)
-    let filename
-    try{
-      if(data.fileName)
-      {
-        filename = `${Date.now()}.${mime.extension(data.fileType)}` //current time 
-        console.log(filename)
-        await fs.copy(data.filePath, `public/avatars/${filename}`)
-      }
-      const sql = `INSERT INTO answers(userid, photo, firstname, lastname, title, summary, description)\
-                    Values(${data.account}, "${filename}", "${data.firstname}", "${data.lastname}",\
-                            "${data.title}", "${data.summary}", "${data.description}")`
-      console.log(sql)
-      await this.db.run(sql)
-      return true
-    }
-    catch(err)
-    {
-      console.log(err)
-      throw(err)
-    }
-    
-  }
-  
+   
   async close()
   {
     await this.db.close()

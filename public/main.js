@@ -1,4 +1,5 @@
-
+import Questions from '../modules/questions.js'
+import faqRouter from './faq.js'
 /* main.js */
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -17,6 +18,15 @@ window.addEventListener('DOMContentLoaded', () => {
          console.log('back button clicked')
          console.log(window.history)
          window.history.back()
+       })
+     })
+    }
+  
+  if(document.querySelector('button.flag')){
+     document.querySelectorAll('button.flag').forEach(element =>{
+       element.addEventListener('click',() =>{
+         console.log('answer flagged')
+         Questions.solved()
        })
      })
     }

@@ -55,10 +55,10 @@ class Answers {
     console.log('POSTANS')
     console.log(data)
     try{
-      const sql = `INSERT INTO answers(ownerid, answer)\
-                   Values(${data.account}, "${data.answer}")`
+      const sql = `INSERT INTO answers(questionid, answer)\
+                   Values(${data.questionid}, "${data.answer}")`
       console.log(sql)
-      await this.db.run(sql)
+      //await this.db.run(sql)
       return true
     }
     catch(err)

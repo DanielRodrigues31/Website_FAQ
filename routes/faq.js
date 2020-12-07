@@ -62,13 +62,35 @@ router.get('/answer/:id' , async ctx =>{
     console.log(`record: ${ctx.params.id}`)
     ctx.hbs.question = await questions.getByID(ctx.params.id) //adds question ID to handlebar 
     ctx.hbs.answer = await answers.getByID(ctx.params.id) //adds answer ID to handlebar 
+    ctx.session.questionid = await questions.getQuestionID(ctx.params.id)
     console.log(ctx.hbs)
     ctx.hbs.id = ctx.params.id
     await ctx.render('answer', ctx.hbs)
+    return ctx.session.questionid
   } catch(err) {
     console.log(err)
     await ctx.render('error', ctx.hbs)
   }
+  
+})
+
+router.post('/answer/:id' , async ctx =>{
+  const questions = await new Questions(dbName)
+  const answers = await new Answers(dbName)
+  try{
+    ctx.request.body.account = ctx.session.userid
+    ctx.request.body.questionid = ctx.session.questionid
+    await answers.postans(ctx.request.body)
+    await questions.answered(ctx.request.body)
+    return ctx.redirect('/faq?msg=new answer posted')
+  } catch(err) {
+    console.log(err)
+    await ctx.render('error', ctx.hbs)
+  } finally{
+      answers.close()
+  }
+  
+
   
 })
 

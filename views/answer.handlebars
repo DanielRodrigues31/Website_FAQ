@@ -30,7 +30,7 @@
     </table>
     </main>
     <main>
-      <form method="post" action="/faq/post/answer" enctype="multipart/form-data">
+      <form method="post" action="/faq/answer/:id" enctype="multipart/form-data">
         <p>
           <label for="description">Answer</label><br />
           <textarea name="answer" placeholder="Enter answer" required></textarea>
@@ -43,6 +43,7 @@
       <tr><th>Answers</th></tr>
         <tr>
           <td>{{answer.answer}}</td>
+          <button class="flag">Correct</button>
         </tr>
     </table>
     </main>
