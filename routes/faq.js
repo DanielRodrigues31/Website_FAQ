@@ -74,14 +74,14 @@ router.get('/answer/:id' , async ctx =>{
   
 })
 
-router.post('/answer/:id' , async ctx =>{
-  const questions = await new Questions(dbName)
-  const answers = await new Answers(dbName)
+router.post('/answer/:id' , async ctx =>{ // outputs information from the question specific answer handlebar
+  const questions = await new Questions(dbName) // stores Questions as question, this creates a body for it
+  const answers = await new Answers(dbName) // stores Answers as answer, this creates a body for it
   try{
-    ctx.request.body.account = ctx.session.userid
-    ctx.request.body.questionid = ctx.session.questionid
-    await answers.postans(ctx.request.body)
-    await questions.answered(ctx.request.body)
+    ctx.request.body.account = ctx.session.userid // gets all the information from the body.account and sets it to the userid
+    ctx.request.body.questionid = ctx.session.questionid // gets all the information from the body.questionid and sets it to the questionid
+    await answers.postans(ctx.request.body) // triggers the postans function in answers with the information from the body
+    await questions.answered(ctx.request.body) // triggers the answered function in the questions class with the information from the body
     return ctx.redirect('/faq?msg=new answer posted')
   } catch(err) {
     console.log(err)

@@ -16,14 +16,14 @@ const dbName = 'website.db'
  * @route {GET} /
  */
 router.get('/', async ctx => {
-  const questions = await new Questions(dbName)
+  const questions = await new Questions(dbName) // stores Questions with the database inputted as a const
 	try {
     const records = await questions.all()
     console.log(records)
-    ctx.hbs.records = records
-    await ctx.render('index', ctx.hbs)
+    ctx.hbs.records = records // sets the handlebars to records
+    await ctx.render('index', ctx.hbs) // renders index page
 	} catch(err) {
-		await ctx.render('error', ctx.hbs)
+		await ctx.render('error', ctx.hbs) // renders error page
 	}
 })
 
