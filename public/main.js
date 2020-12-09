@@ -1,5 +1,3 @@
-import Questions from '../modules/questions.js'
-import faqRouter from './faq.js'
 /* main.js */
 
 window.addEventListener('DOMContentLoaded', () => {

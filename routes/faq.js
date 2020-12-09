@@ -90,6 +90,23 @@ router.post('/answer/:id' , async ctx =>{ // outputs information from the questi
       answers.close()
   }
   
+router.post('/answer/:id/flag' , async ctx =>{
+  const questions = await new Questions(dbName) // stores Questions as question, this creates a body for it
+  const answers = await new Answers(dbName) // stores Answers as answer, this creates a body for it
+  try{
+    ctx.request.body.account = ctx.session.userid // gets all the information from the body.account and sets it to the userid
+    ctx.request.body.questionid = ctx.session.questionid // gets all the information from the body.questionid and sets it to the questionid
+    await questions.solved(ctx.request.body) // triggers the answered function in the questions class with the information from the body
+    return ctx.redirect('/faq?msg=new answer flagged')
+  } catch(err) {
+    console.log(err)
+    await ctx.render('error', ctx.hbs)
+  } finally{
+      answers.close()
+  }
+  
+})
+  
 
   
 })
