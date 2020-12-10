@@ -256,3 +256,19 @@ td:last-child, th:last-child {
 	text-align: center;
 }
 
+.faq_content {
+  width: 80%;
+  height: 100%;
+  right: 0;
+  top: 0;
+  transform: translatez(0) translatex(100%);
+  transition: transform .4s; 
+}
+
+.faq_content_animation {
+  transform: translatex(0);
+}
+
+
+
+

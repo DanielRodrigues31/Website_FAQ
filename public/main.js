@@ -20,15 +20,6 @@ window.addEventListener('DOMContentLoaded', () => {
      })
     }
   
-  if(document.querySelector('button.flag')){
-     document.querySelectorAll('button.flag').forEach(element =>{
-       element.addEventListener('click',() =>{
-         console.log('answer flagged')
-         Questions.solved()
-       })
-     })
-    }
-
     if(document.querySelector('input'))
     {
       document.querySelectorAll('input').forEach( element => {

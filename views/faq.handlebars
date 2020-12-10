@@ -21,18 +21,17 @@
 			</aside>
 		{{/if}}
 		<main>
-    <table>
-      <tr><th>Photo</th><th>Title</th><th>Summary</th><th>Description</th><th>Options</th></tr>
       {{#each records}}
-        <tr>
-          <td><img src="avatars/{{this.photo}}" /></td>
-          <td>{{this.title}}</td>
-          <td>{{this.summary}}</td>
-          <td>{{this.description}}</td>
-          <td><a href="faq/answer/{{this.id}}">answer</a></td>
-        </tr>
-      {{/each}}
-    </table>
+      <li class="faq_title"><h2><img src="avatars/{{this.photo}}"/>{{this.title}}</h2></li>
+      <li class="faq_content">
+        <a class="cd-faq__trigger" href="#0"><span>{{this.summary}}</span></a>
+            <div class="cd-faq__content">
+              <div class="text-component">
+            {{this.description}}
+          </div>
+        </div> <!-- cd-faq__content -->
+      </li>
+     {{/each}}
 		</main>
     <a class="post" href="/faq/post">New Question</a> 
 	</body>
