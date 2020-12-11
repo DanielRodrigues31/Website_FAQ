@@ -12,7 +12,7 @@
 	</head>
 	<body>
 		<header>
-		<h1>Questions</h1>
+		<h1>FAQ</h1>
 		<a href="/logout">Log out</a>
 		</header>
 		{{#if msg}}
@@ -20,19 +20,30 @@
 				<p class="msg">{{msg}}</p>
 			</aside>
 		{{/if}}
-		<main>
-      {{#each records}}
-      <li class="faq_title"><h2><img src="avatars/{{this.photo}}"/>{{this.title}}</h2></li>
-      <li class="faq_content">
-        <a class="cd-faq__trigger" href="#0"><span>{{this.summary}}</span></a>
-            <div class="cd-faq__content">
-              <div class="text-component">
-            {{this.description}}
+		<section>
+      <a class="post" href="/faq/post">New Question</a>
+      <div class="container">
+        <div class="accordion">
+          {{#each records }}
+          <div class="faq-item" id="question{{this.id}}">
+            <a class="faq-link" href="#question{{this.id}}">
+             <h4>{{this.title}}</h4> 
+            </a>
+            <div class="answer">
+              <h5>
+                {{this.summary}}
+              </h5>
+              <p>
+                {{this.description}}
+              </p>
+              <p>
+                <a href="faq/answer/{{this.id}}">answer</a>
+              </p>
+            </div>
           </div>
-        </div> <!-- cd-faq__content -->
-      </li>
-     {{/each}}
-		</main>
-    <a class="post" href="/faq/post">New Question</a> 
+          {{/each}}
+        </div>
+      </div>
+		</section>
 	</body>
 </html>

@@ -24,18 +24,30 @@
 				<p class="msg">{{msg}}</p>
 			</aside>
 		{{/if}}
-	<main>
-    <table>
-      <tr><th>Name</th><th>Title</th><th>Summary</th><th>Status</th></tr>
-      {{#each records}}
-        <tr>
-          <td>{{this.firstname}} {{this.lastname}}</td>
-          <td>{{this.title}}</td>
-          <td>{{this.summary}}</td>
-          <td>{{this.status}}</td>
-        </tr>
-      {{/each}}
-    </table>
-	</main>
+	<section>
+      <div class="container">
+        <div class="accordion">
+          {{#each records }}
+          <div class="faq-item" id="question{{this.id}}">
+            <a class="faq-link" href="#question{{this.id}}">
+             <h4>{{this.title}}</h4> 
+            </a>
+            <div class="answer">
+              <h5>
+                <img src="avatars/{{this.photo}}" />
+                {{this.firstname}} {{this.lastname}}
+              </h5>
+              <p>
+                {{this.summary}}
+              </p>
+              <p>
+                Status:  {{this.status}}
+              </p>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+		</section>
 	</body>
 </html>

@@ -20,20 +20,20 @@
 				<p class="msg">{{msg}}</p>
 			</aside>
 		{{/if}}
-		<main>
+		<section>
 		<form action="/login" method="post">
 			<p>
-				<label for="user">Username</label><br />
+				<label for="user"><h4>Username</h4></label><br />
 				<input type="text" name="user" placeholder="your username" value="{{body.user}}" autofocus>
 			</p>
 			<p>
-				<label for="pass">Password</label><br />
+				<label for="pass"><h4>Password</h4></label><br />
 				<input type="password" name="pass" placeholder="your password" value="{{body.pass}}">
 			</p>
 			<input type="hidden" name="referrer" value="{{referrer}}">
 			<p><input type="submit" value="Log in"></p>
+      <p><a href="/">Home page</a></p>
 		</form>
-		<p><a href="/">Home page</a></p>
-		</main>
+		</section>
 	</body>
 </html>
