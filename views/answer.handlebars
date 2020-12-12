@@ -40,10 +40,12 @@
       <table>
       <form method="post" action="/faq/answer/{{id}}/flag" enctype="multipart/form-data">
         <h4>Answers</h4>
+        {{#each faqans}}
         <tr>
-        <td>"{{answer.answer}}"</td>
+        <td>{{this.answer}}</td>
         <td><input type="submit" value="Submit"></td>
         </tr>
+        {{/each}}
       </form>
       </table>
     </main>

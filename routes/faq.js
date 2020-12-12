@@ -60,6 +60,8 @@ router.get('/answer/:id' , async ctx =>{
   const answers = await new Answers(dbName)
   try{
     console.log(`record: ${ctx.params.id}`)
+    const faqans = await answers.getAns(ctx.params.id)
+    ctx.hbs.faqans = faqans
     ctx.hbs.question = await questions.getByID(ctx.params.id) //adds question ID to handlebar 
     ctx.hbs.answer = await answers.getByID(ctx.params.id) //adds answer ID to handlebar 
     ctx.session.questionid = await questions.getQuestionID(ctx.params.id)

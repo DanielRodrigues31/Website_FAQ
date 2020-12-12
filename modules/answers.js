@@ -50,6 +50,20 @@ class Answers {
     }
   }
   
+  async getAns(id)
+  {
+    try 
+    {
+      const sql = `SELECT answers.answer FROM answers WHERE answers.questionid = ${id}`
+      console.log(sql)
+      const answer = await this.db.get(sql) //gets sql query
+      return answer // all fields within a single record
+    } catch(err){
+      console.log(err)
+      throw err
+    }
+  }
+  
   async postans(data)
   {
     console.log('POSTANS')
@@ -58,7 +72,7 @@ class Answers {
       const sql = `INSERT INTO answers(questionid, answer)\
                    Values(${data.questionid}, "${data.answer}")`
       console.log(sql)
-      //await this.db.run(sql)
+      await this.db.run(sql)
       return true
     }
     catch(err)
