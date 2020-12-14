@@ -36,8 +36,7 @@ class Questions {
   
   async all()
     {
-      const sql = 'SELECT users.user, questions.*FROM questions, users\
-                     WHERE questions.userid = users.id;'
+      const sql = 'SELECT questions.* FROM questions;'
       const questions = await this.db.all(sql)
       for(const index in questions)
       {
@@ -50,8 +49,9 @@ class Questions {
   {
     try 
     {
-      const sql = `SELECT users.user, questions.* FROM questions, users\ 
-                   WHERE questions.userid = users.id AND questions.id = ${id};`
+      const sql = `SELECT questions.* FROM questions WHERE questions.id = ${id};`
+      /*const sql = `SELECT users.user, questions.* FROM questions, users\ 
+                   WHERE questions.userid = users.id AND questions.id = ${id};`*/
       console.log(sql)
       const question = await this.db.get(sql) //gets sql query
       return question // all fields within a single record
@@ -95,7 +95,7 @@ class Questions {
   {
     try
     {
-      const sql = `SELECT Id, REPLACE(status, 'unsolved', ‘solved’) from questions WHERE Id = "${data.id}"`
+      const sql = `UPDATE questions SET status = "solved" WHERE status = "answered" AND id = "${data.id}"`
       console.log(sql)
       await this.db.get(sql)
       return true
