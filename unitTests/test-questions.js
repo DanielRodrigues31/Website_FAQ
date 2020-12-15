@@ -1,5 +1,5 @@
 import test from 'ava'
-import Questions from '../modules/questions.js'
+import Questions from '../modules/questions.js' 
 
 test('INSERTING QUESTIONS : insert question into sql', async test =>{
   //arrange
@@ -26,9 +26,10 @@ test('INSERTING QUESTIONS : insert question into sql', async test =>{
 })
 
 test.only('Getting ID : getting question information', async test =>{
+  //arrange
   test.plan(1)
   const question = await new Questions();
-  
+  //act
   try {
       await question.answered({
       account: 1,
@@ -39,6 +40,7 @@ test.only('Getting ID : getting question information', async test =>{
       description: 'Hi im currently wanting to get tested before I go home for christmas, where do i get this service?',
       status: 'unanswered'})
       const GetQuestion = await question.all(1)
+      //assert
       test.is(GetQuestion[6], 'answered' , 'question not updated' )
   } catch(err) {
     console.log(err)
@@ -50,9 +52,10 @@ test.only('Getting ID : getting question information', async test =>{
   })
 
 test.only('Update Answers : updating question information', async test =>{
+  //arrange
   test.plan(1)
   const question = await new Questions();
-  
+  //act
   try {
       await question.solved({
       account: 1,
@@ -63,6 +66,7 @@ test.only('Update Answers : updating question information', async test =>{
       description: 'Hi im currently wanting to get tested before I go home for christmas, where do i get this service?',
       status: 'unanswered'})
       const GetQuestion = await question.all(1)
+      //assert
       test.is(GetQuestion[6], 'solved' , 'question not updated' )
   } catch(err) {
     console.log(err)
