@@ -61,10 +61,11 @@ router.get('/answer/:id' , async ctx =>{
   try{
     console.log(`record: ${ctx.params.id}`)
     const faqans = await answers.getAns(ctx.params.id)
-    ctx.hbs.faqans = faqans
+    //ctx.hbs.faqans = faqans / possible error made!
+    ctx.hbs.answer = faqans // stores the cookie faqans to the answer handlebar
     ctx.hbs.question = await questions.getByID(ctx.params.id) //adds question ID to handlebar 
     ctx.hbs.answer = await answers.getByID(ctx.params.id) //adds answer ID to handlebar 
-    ctx.session.questionid = await questions.getQuestionID(ctx.params.id)
+    ctx.session.questionid = await questions.getQuestionID(ctx.params.id) // gets the question id 
     console.log(ctx.hbs)
     ctx.hbs.id = ctx.params.id
     await ctx.render('answer', ctx.hbs)
@@ -84,7 +85,7 @@ router.post('/answer/:id' , async ctx =>{ // outputs information from the questi
     ctx.request.body.questionid = ctx.session.questionid // gets all the information from the body.questionid and sets it to the questionid
     await answers.postans(ctx.request.body) // triggers the postans function in answers with the information from the body
     await questions.answered(ctx.request.body) // triggers the answered function in the questions class with the information from the body
-    return ctx.redirect('/faq?msg=new answer posted')
+    return ctx.redirect('/faq?msg=new answer posted') // displays message when redirected
   } catch(err) {
     console.log(err)
     await ctx.render('error', ctx.hbs)
@@ -104,7 +105,7 @@ router.post('/answer/:id/flag' , async ctx =>{
     return ctx.redirect('/faq?msg=question solved')
   } catch(err) {
     console.log(err)
-    await ctx.render('error', ctx.hbs)
+    await ctx.render('error', ctx.hbs) // catches an error then renders error page
   } finally{
       answers.close()
   }
