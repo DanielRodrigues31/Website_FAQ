@@ -82,7 +82,7 @@ class Questions {
     {
       const sql = `UPDATE questions SET status = "answered" WHERE status = "unanswered" AND id = "${data.id}"`
       console.log(sql)
-      await this.db.get(sql)
+      await this.db.run(sql)
       return true
       
     } catch(err){
@@ -95,11 +95,11 @@ class Questions {
   {
     try
     {
-      const sql = `UPDATE questions SET status = "solved" WHERE status = "answered" AND id = "${data.id}"`
+      const sql = `UPDATE questions SET status = "solved" WHERE id = "${data.questionid}"`
       console.log(sql)
-      await this.db.get(sql)
+      await this.db.run(sql)
       return true
-      
+   
     } catch(err){
       console.log(err)
       throw err

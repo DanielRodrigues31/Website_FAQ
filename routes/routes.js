@@ -12,4 +12,6 @@ for (const router of nestedRoutes) {
 	mainRouter.use(router.allowedMethods())
 }
 
+console.log(mainRouter.stack.map(i => i.path));
+
 export default mainRouter

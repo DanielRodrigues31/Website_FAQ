@@ -54,9 +54,10 @@ class Answers {
   {
     try 
     {
-      const sql = `SELECT answers.answer FROM answers WHERE answers.questionid = ${id}`
-      console.log(sql)
-      const answer = await this.db.get(sql) //gets sql query
+      const sql = `SELECT answers.answer FROM answers WHERE answers.questionid = ${id};`
+      console.log("getAns", sql)
+      const answer = await this.db.all(sql) //gets sql query
+      console.log("Answer", await this.db.all(sql))
       return answer // all fields within a single record
     } catch(err){
       console.log(err)
