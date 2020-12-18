@@ -36,6 +36,7 @@
         <p><input type="submit" value="Submit"></p>
       </form>
     </main>
+   {{#if display}}
     <main>
       <table>
       <form method="post" action="/faq/answer/{{id}}/flag" enctype="multipart/form-data">
@@ -49,6 +50,7 @@
       </form>
       </table>
     </main>
+    {{/if}}
       <button class="back">Back</button>
 	</body>
 </html>

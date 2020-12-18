@@ -59,17 +59,24 @@ router.post('/post', async ctx =>{
 router.get('/answer/:id' , async ctx =>{
   const questions = await new Questions(dbName)
   const answers = await new Answers(dbName)
+  const display = false
   try{
     console.log(`record: ${ctx.params.id}`)
     const faqans = await answers.getAns(ctx.params.id)
     console.log(faqans)
     ctx.hbs.faqans = faqans
-    // ctx.hbs.answer = faqans / possible solution
     ctx.hbs.question = await questions.getByID(ctx.params.id) //adds question ID to handlebar 
+    console.log(ctx.hbs.question.userid)
+    console.log(ctx.session.userid)
     ctx.hbs.answer = await answers.getByID(ctx.params.id) //adds answer ID to handlebar 
     ctx.session.questionid = await questions.getQuestionID(ctx.params.id) // gets the question id 
     console.log(ctx.hbs)
     ctx.hbs.id = ctx.params.id
+    ctx.hbs.display = false
+    if (ctx.hbs.question.userid === ctx.session.userid)
+    {
+      ctx.hbs.display = true
+    }
     await ctx.render('answer', ctx.hbs)
     return ctx.session.questionid
   } catch(err) {
