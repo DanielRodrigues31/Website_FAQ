@@ -16,12 +16,12 @@ const dbName = 'website.db'
  * @route {GET} /
  */
 router.get('/', async ctx => {
-  const questions = await new Questions(dbName) // stores Questions with the database inputted as a const
+	const questions = await new Questions(dbName) // stores Questions with the database inputted as a const
 	try {
-    const records = await questions.all()
-    console.log(records)
-    ctx.hbs.records = records // sets the handlebars to records
-    await ctx.render('index', ctx.hbs) // renders index page
+		const records = await questions.all()
+		console.log(records)
+		ctx.hbs.records = records // sets the handlebars to records
+		await ctx.render('index', ctx.hbs) // renders index page
 	} catch(err) {
 		await ctx.render('error', ctx.hbs) // renders error page
 	}
@@ -70,8 +70,8 @@ router.post('/login', async ctx => {
 		const body = ctx.request.body
 		const id = await account.login(body.user, body.pass)
 		ctx.session.authorised = true //sets authorisation to true
-    ctx.session.user = body.user //stores current userid 
-    ctx.session.userid = id
+		ctx.session.user = body.user //stores current userid
+		ctx.session.userid = id
 		const referrer = body.referrer || '/faq'
 		return ctx.redirect(`${referrer}?msg=you are now logged in...`)
 	} catch(err) {
@@ -84,8 +84,8 @@ router.post('/login', async ctx => {
 
 router.get('/logout', async ctx => {
 	ctx.session.authorised = null
-  delete ctx.session.user
-  delete ctx.session.userid
+	delete ctx.session.user
+	delete ctx.session.userid
 	ctx.redirect('/?msg=you are now logged out')
 })
 
