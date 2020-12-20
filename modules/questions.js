@@ -70,10 +70,13 @@ class Questions {
 
 	async answered(data) {
 		try {
-			const sql = `UPDATE questions SET status = "answered" WHERE status = "unanswered" AND id = "${data.id}"`
+			const sql = `UPDATE questions SET status = "answered" WHERE status = "unanswered" AND id = "${data.questionid}"`
 			console.log(sql)
 			await this.db.run(sql)
-			return true
+			const sql2 = `SELECT questions.* FROM questions WHERE id = "${data.questionid}"`
+			console.log(sql2)
+			const resultsql2 = await this.db.get(sql2)
+			return resultsql2
 
 		} catch(err) {
 			console.log(err)

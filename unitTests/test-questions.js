@@ -43,8 +43,8 @@ test.only('Update Answers : updating question information to answered', async te
 			status: 'unanswered'})
 
       const GetQuestion = await question.answered({
-			account: 1,
-			questionid: 1
+      account: 1,
+      questionid: 1
 		})
 		//assert
 		test.is(GetQuestion.status, 'answered' , 'question not updated')
@@ -57,7 +57,7 @@ test.only('Update Answers : updating question information to answered', async te
 
 })
 
-test.('Update Answers : updating question information to solved', async test => {
+test('Update Answers : updating question information to solved', async test => {
 	//arrange
 	test.plan(1)
 	const question = await new Questions()
