@@ -26,7 +26,7 @@ test('INSERTING QUESTIONS : insert question into sql', async test => {
 	}
 })
 
-test.only('Update Answers : updating question information to answered', async test => {
+test('Update Answers : updating question information to answered', async test => {
 	//arrange
 	test.plan(1)
 	const question = await new Questions()
@@ -42,9 +42,9 @@ test.only('Update Answers : updating question information to answered', async te
                     where do i get this service?',
 			status: 'unanswered'})
 
-      const GetQuestion = await question.answered({
-      account: 1,
-      questionid: 1
+		const GetQuestion = await question.answered({
+			account: 1,
+			questionid: 1
 		})
 		//assert
 		test.is(GetQuestion.status, 'answered' , 'question not updated')

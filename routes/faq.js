@@ -87,7 +87,7 @@ router.post('/answer/:id' , async ctx => {
 		await answers.postans(ctx.request.body)
 		// triggers the postans function in answers with the information from the body
 		await questions.answered(ctx.request.body)
-    console.log('ctx.request.body : ', ctx.request.body)
+		console.log('ctx.request.body : ', ctx.request.body)
 		// triggers the answered function in the questions class with the information from the body
 		return ctx.redirect('/faq?msg=newanswerposted')
 		// displays message when redirected
