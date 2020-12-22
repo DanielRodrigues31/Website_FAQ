@@ -45,7 +45,8 @@ class Questions {
 
 	async getByID(id) {
 		try {
-			const sql = `SELECT questions.* FROM questions WHERE questions.id = ${id};`
+			const sql = `SELECT questions.* FROM questions WHERE questions.id = ${id};` 
+      // gets all elements from questions where the ID is equal to the inputted id
 			console.log(sql)
 			const question = await this.db.get(sql) //gets sql query
 			return question // all fields within a single record
@@ -59,6 +60,7 @@ class Questions {
 		try {
 			const sql = `SELECT users.user, questions.* FROM questions, users\ 
                    WHERE questions.userid = users.id AND questions.id = ${id};`
+      // gets all elements from questions and users where the ID is equal to the inputted id
 			console.log(sql)
 			const question = await this.db.get(sql) //gets sql query
 			return question.id // all fields within a single record
@@ -72,11 +74,13 @@ class Questions {
 		try {
 			const sql = `UPDATE questions SET status = "answered"\
                    WHERE status = "unanswered" AND id = "${data.questionid}"`
+     //updates the status to answer where the column in status is equal to unanswered and the question id matches
 			console.log(sql)
 			await this.db.run(sql)
 			const sql2 = `SELECT questions.* FROM questions WHERE id = "${data.questionid}"`
+      // gets all elements from questions where the ID is equal to the inputted questionid
 			console.log(sql2)
-			const resultsql2 = await this.db.get(sql2)
+			const resultsql2 = await this.db.get(sql2) // for unit testing purposes
 			return resultsql2
 
 		} catch(err) {
@@ -88,11 +92,13 @@ class Questions {
 	async solved(data) {
 		try {
 			const sql = `UPDATE questions SET status = "solved" WHERE id = "${data.questionid}"`
+      //updates questions table, gets the questionid, matches it and sets status column to solved
 			console.log(sql)
 			await this.db.run(sql)
 			const sql2 = `SELECT questions.* FROM questions WHERE id = "${data.questionid}"`
+      // gets all elements from questions where the ID is equal to the inputted questionid
 			console.log(sql2)
-			const resultsql2 = await this.db.get(sql2)
+			const resultsql2 = await this.db.get(sql2) // for unit testing purposes
 			return resultsql2
 
 		} catch(err) {
@@ -114,6 +120,7 @@ class Questions {
 			const sql = `INSERT INTO questions(userid, photo, firstname, lastname, title, summary, description, status)\
                     Values(${data.account}, "${filename}", "${data.firstname}", "${data.lastname}",\
                             "${data.title}", "${data.summary}", "${data.description}", "unanswered")`
+      // inserts into questions table the following elements with the data from the handlebars body, unanswered is added by default
 			await this.db.run(sql)
 			return true
 		} catch(err) {
