@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -e # abort script at first error
+
+echo "PREPARE-COMMIT-MSG"
+
+COMMIT_MSG_FILE=$1
+
+#echo "default commit message" > "$COMMIT_MSG_FILE"
+
+#stores each line of input as their related SWW format element 
+read -p "Summary: " Summary < /dev/tty
+read -p "Why: " Why < /dev/tty
+read -p "What: " What < /dev/tty
+#Stores variable character length
+SummarySize=${#Summary}
+WhySize=${#Why}
+WhatSize=${#What}
+#stores it all in 1 variable if character length conditions are met
+if (($SummarySize <= 75)) && (($WhySize <= 150)) && (($WhatSize <= 150))
+then
+   echo -e "$Summary \n $Why \n $What" > "$COMMIT_MSG_FILE"
+   echo $COMMIT_MSG_FILE
+else
+  echo "Format too long!"
+fi
