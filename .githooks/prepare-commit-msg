@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e # abort script at first error
 
@@ -17,7 +17,7 @@ SummarySize=${#Summary}
 WhySize=${#Why}
 WhatSize=${#What}
 #stores it all in 1 variable if character length conditions are met
-if (($SummarySize <= 75)) && (($WhySize <= 150)) && (($WhatSize <= 150))
+if (($SummarySize <= 150)) && (($WhySize <= 500)) && (($WhatSize <= 5000)) && (($SummarySize >= 0)) && (($WhySize >= 0)) && (($WhatSize <= 0))
 then
    echo -e "$Summary \n $Why \n $What" > "$COMMIT_MSG_FILE"
    echo $COMMIT_MSG_FILE
