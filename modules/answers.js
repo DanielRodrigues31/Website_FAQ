@@ -51,7 +51,7 @@ class Answers {
 		try {
 			const sql = `SELECT answers.answer FROM answers WHERE answers.questionid = ${id};`
 			console.log('getAns', sql)
-			const answer = await this.db.all(sql) //gets sql query
+			const answer = await this.db.all(sql) //gets sql query from answers with the row relevant to the selected id
 			console.log('Answer', await this.db.all(sql))
 			return answer // all fields within a single record
 		} catch(err) {
@@ -66,8 +66,9 @@ class Answers {
 		try{
 			const sql = `INSERT INTO answers(questionid, answer)\
                    Values(${data.questionid}, "${data.answer}")`
-			console.log(sql)
-			await this.db.run(sql)
+			//inserts into the sql table of answers the question id and the answer inserted by the handlebars
+			console.log(sql) // for test purposes
+			await this.db.run(sql) // awaits the sql input before running
 			return true
 		} catch(err) {
 			console.log(err)
