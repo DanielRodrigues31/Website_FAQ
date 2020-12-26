@@ -17,6 +17,7 @@ SummarySize=${#Summary}
 WhySize=${#Why}
 WhatSize=${#What}
 #stores it all in 1 variable if character length conditions are met
+#the conditions are if the sizes are equal or less or more than the hard coded integers 
 if (($SummarySize <= 150)) && (($WhySize <= 500)) && (($WhatSize <= 5000)) && (($SummarySize >= 0)) && (($WhySize >= 0)) && (($WhatSize >= 0))
 then
    echo -e "$Summary \n $Why \n $What" > "$COMMIT_MSG_FILE"
