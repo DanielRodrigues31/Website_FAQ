@@ -42,8 +42,11 @@ router.post('/post', async ctx => {
 		ctx.request.body.account = ctx.session.userid
 		if(ctx.request.files.photo.name) {
 			ctx.request.body.filePath = ctx.request.files.photo.path
+      //requests photos path
 			ctx.request.body.fileName = ctx.request.files.photo.name
+      //requests photos name
 			ctx.request.body.fileType = ctx.request.files.photo.type
+      //request photos file format
 		}
 		await questions.post(ctx.request.body)
 		return ctx.redirect('/faq?msg=new question posted')

@@ -15,11 +15,11 @@ const port = process.env.PORT || defaultPort
 async function getHandlebarData(ctx, next) {
 	console.log(`${ctx.method} ${ctx.path}`)
 	ctx.hbs = {
-		authorised: ctx.session.authorised,
-		user: ctx.session.user,
-		userid: ctx.session.userid,
-		questionid: ctx.session.questionid,
-		host: `https://${ctx.host}`
+		authorised: ctx.session.authorised, // sets the cookie of authorised
+		user: ctx.session.user, // sets the cookie of the user
+		userid: ctx.session.userid, // sets the cookie of the userid
+		questionid: ctx.session.questionid, // sets the cookie of the questionid
+		host: `https://${ctx.host}` 
 	}
 	for(const key in ctx.query) ctx.hbs[key] = ctx.query[key]
 	await next()
