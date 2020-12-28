@@ -19,7 +19,7 @@ async function getHandlebarData(ctx, next) {
 		user: ctx.session.user, // sets the cookie of the user
 		userid: ctx.session.userid, // sets the cookie of the userid
 		questionid: ctx.session.questionid, // sets the cookie of the questionid
-		host: `https://${ctx.host}` 
+		host: `https://${ctx.host}`
 	}
 	for(const key in ctx.query) ctx.hbs[key] = ctx.query[key]
 	await next()

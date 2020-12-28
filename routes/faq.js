@@ -18,7 +18,7 @@ router.use(checkAuth)
 
 router.get('/', async ctx => {
 	const questions = await new Questions(dbName)
-  //stores an instance of the classes as variables
+	//stores an instance of the classes as variables
 	try {
 		console.log('testA')
 		const records = await questions.all()
@@ -37,16 +37,16 @@ router.get('/post' , async ctx => {
 
 router.post('/post', async ctx => {
 	const questions = await new Questions(dbName)
-  //stores an instance of the classes as variables
+	//stores an instance of the classes as variables
 	try {
 		ctx.request.body.account = ctx.session.userid
 		if(ctx.request.files.photo.name) {
 			ctx.request.body.filePath = ctx.request.files.photo.path
-      //requests photos path
+			//requests photos path
 			ctx.request.body.fileName = ctx.request.files.photo.name
-      //requests photos name
+			//requests photos name
 			ctx.request.body.fileType = ctx.request.files.photo.type
-      //request photos file format
+			//request photos file format
 		}
 		await questions.post(ctx.request.body)
 		return ctx.redirect('/faq?msg=new question posted')
@@ -61,11 +61,11 @@ router.post('/post', async ctx => {
 router.get('/answer/:id' , async ctx => {
 	const questions = await new Questions(dbName)
 	const answers = await new Answers(dbName)
-  //stores an instance of the classes as variables
+	//stores an instance of the classes as variables
 	try{
 		const faqans = await answers.getAns(ctx.params.id)
 		ctx.hbs.faqans = faqans
-    //creates a reference point in the hbs to the faqans cookie
+		//creates a reference point in the hbs to the faqans cookie
 		ctx.hbs.question = await questions.getByID(ctx.params.id) //adds question ID to handlebar
 		ctx.hbs.answer = await answers.getByID(ctx.params.id) //adds answer ID to handlebar
 		ctx.session.questionid = await questions.getQuestionID(ctx.params.id) // gets the question id
@@ -121,7 +121,7 @@ router.post('/answer/:id/flag' , async ctx => {
 		await questions.solved(ctx.request.body)
 		// triggers the answered function in the questions class with the information from the body
 		console.log('ctx.request.body : ', ctx.request.body)
-    //redirects to the /faq page with a message posted notifying the user the question is set to solved
+		//redirects to the /faq page with a message posted notifying the user the question is set to solved
 		return ctx.redirect('/faq?msg=questionsolved')
 	} catch(err) {
 		console.log(err)

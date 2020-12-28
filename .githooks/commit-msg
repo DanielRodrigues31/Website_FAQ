@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e # abort script at first error
+
+echo "COMMIT-MSG"
+
+COMMIT_MSG_FILE=$1
+
+MSG=$(< $1)
+echo "character count: ${#MSG}"
+echo "${MSG: -1}"
+
+if [ ${MSG: -1} == "." ]
+then
+    echo -e "Punctuation correct"
+else
+    echo -e "Punctuation not correct"
+    exit 1
+fi
+
+read -p "Continue? [Y/N]: " Continue < /dev/tty
+
+if [ $Continue == "Y" ]
+then
+    echo -e "Processing"
+else
+    echo -e "Aborting"
+    exit 1 
+fi
