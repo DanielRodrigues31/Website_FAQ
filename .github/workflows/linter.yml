@@ -1,0 +1,15 @@
+name: Linter
+
+on:
+  push:
+    branches: ['none']
+  pull_request:
+    branches: ['none']
+jobs:
+  Linter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install the linter
+        run: npm install eslint
+      - name: run the linter
+        run: ./node_modules/.bin/eslint .

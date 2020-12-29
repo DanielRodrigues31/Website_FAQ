@@ -1,0 +1,20 @@
+name: UnitTest
+
+on:
+  push:
+    branches: ['none']
+  pull_request:
+    branches: ['none']
+jobs:
+  Linter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use NodeJS
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Install Testing Tools
+        run: npm install
+      - name: Run Test Suite
+        run: npm test
