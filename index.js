@@ -32,28 +32,28 @@ async function getHandlebarData(ctx, next) {
 //Initialise Questions_Data
 const dbName = 'website.db'
 
-async function Init(){
-  
-  const questions = await new Questions(dbName)
-  try {
-    questions.setQuestion()
-  } catch(err) {
-    console.log(err)
-  }
+async function Init() {
 
-  const answers = await new Answers(dbName)
-  try {
-    answers.setAnswer()
-  } catch(err) {
-    console.log(err)
-  }
-  
-  const accounts = await new Accounts(dbName)
-  try {
-    accounts.setAccount()
-  } catch(err) {
-    console.log(err)
-  }
+	const questions = await new Questions(dbName)
+	try {
+		questions.setQuestion()
+	} catch(err) {
+		console.log(err)
+	}
+
+	const answers = await new Answers(dbName)
+	try {
+		answers.setAnswer()
+	} catch(err) {
+		console.log(err)
+	}
+
+	const accounts = await new Accounts(dbName)
+	try {
+		accounts.setAccount()
+	} catch(err) {
+		console.log(err)
+	}
 }
 Init()
 app.use(serve('public'))
