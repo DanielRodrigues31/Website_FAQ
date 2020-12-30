@@ -53,7 +53,7 @@ class Accounts {
 	 * checks to see if a set of login credentials are valid
 	 * @param {String} username the username to check
 	 * @param {String} password the password to check
-	 * @returns {Boolean} returns true if credentials are valid
+	 * @returns {Number} returns record.id if credentials are valid
 	 */
 	async login(username, password) {
 		let sql = `SELECT count(id) AS count FROM users WHERE user="${username}";`

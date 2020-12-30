@@ -33,6 +33,8 @@ class Questions {
 			return this
 		})()
 	}
+  
+  
 
 	async all() {
 		const sql = 'SELECT questions.* FROM questions;'
@@ -130,6 +132,19 @@ class Questions {
 		}
 
 	}
+  
+  async setQuestion() {
+    const sql =  'SELECT * FROM questions;'
+    const QuestionNull = await this.db.get(sql)
+    console.log("test1")
+    if (QuestionNull === undefined) {
+      await fs.readFile('DataBase/Questions_Data.txt', 'utf-8', (err, data) => {
+        if (err) throw err
+        this.db.run(data)
+        return true
+      })
+      }
+    }
 
 	async close() {
 		await this.db.close()

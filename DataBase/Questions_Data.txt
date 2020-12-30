@@ -1,0 +1,6 @@
+INSERT INTO questions(userid, photo, firstname, lastname, title, summary, description, status)
+  Values(1, "img_1.jpg" ,"Daniel", "Rodrigues", "Face Masks", "Universities policy on face masks?", "Where on campus do I need to wear a mask?", "UnAnswered"),
+        (2, "img_2.jpg", "Jamie", "Beeston", "Social Distancing", "Universities plan for Social distancing measures?", "What are the current regulations on social distancing?", "UnAnswered"),
+        (3, "img_3.jpg", "Morgan", "Burton", "Remote Learning", "Universities plan for remote learning?", "Will I be able to carry out my work from completely online?", "UnAnswered"),
+        (4, "img_4.jpg", "Daniel", "Turner", "Lab Times", "Can we choose Lab Times?", "Im currently unavailable for most my selected lab times, will I be able to choose ones that suit me best?", "UnAnswered"),
+        (5, "img_5.jpg", "Joshua", "Webb", "Christmas", "When will we be allowed home?", "For christmas when will it be safest to travel home?", "UnAnswered");

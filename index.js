@@ -4,6 +4,9 @@ import serve from 'koa-static'
 import views from 'koa-views'
 import session from 'koa-session'
 
+import Questions from './modules/questions.js'
+import Answers from './modules/answers.js'
+
 import router from './routes/routes.js'
 
 const app = new Koa()
@@ -35,3 +38,20 @@ app.use(router.routes())
 app.use(router.allowedMethods())
 
 app.listen(port, async() => console.log(`listening on port ${port}`))
+
+//Initialise Questions_Data
+const dbName = 'website.db'
+
+const questions = await new Questions(dbName)
+try {
+  questions.setQuestion()
+} catch(err) {
+  console.log(err)
+}
+
+const answers = await new Answers(dbName)
+try {
+  answers.setAnswer()
+} catch(err) {
+  console.log(err)
+}

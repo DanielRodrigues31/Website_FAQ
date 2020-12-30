@@ -9,11 +9,10 @@ test('INSERTING QUESTIONS : insert question into sql', async test => {
 	try {
 		const InsertAnswer = await answer.postans({
 			id: 1,
-			questionid: 'Jonas',
-			answer: 'Djondo',
-			title: 'Covid Testing'}) //inserts test elements examples into sql table
+			questionid: 1,
+			answer: 'Yes'}) //inserts test elements examples into sql table
 		//assert
-		test.is(InsertAnswer, true, 'Question failed to insert')
+		test.is(InsertAnswer, true, 'Answer failed to insert')
 		// function tested, expected result, output message
 	} catch(err) {
 		console.log(err)
