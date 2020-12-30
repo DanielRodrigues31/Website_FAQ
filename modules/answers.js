@@ -76,19 +76,19 @@ class Answers {
 			throw err
 		}
 	}
-  
-  async setAnswer() {
-    const sql =  'SELECT * FROM answers;'
-    const AnswerNull = await this.db.get(sql)
-    console.log("test1")
-    if (AnswerNull === undefined) {
-      await fs.readFile('DataBase/Answers_Data.txt', 'utf-8', (err, data) => {
-        if (err) throw err
-        this.db.run(data)
-        return true
-      })
-      }
-    }
+
+	async setAnswer() {
+		const sql = 'SELECT * FROM answers;'
+		const AnswerNull = await this.db.get(sql)
+		console.log('test1')
+		if (AnswerNull === undefined) {
+			await fs.readFile('DataBase/Answers_Data.txt', 'utf-8', (err, data) => {
+				if (err) throw err
+				this.db.run(data)
+				return true
+			})
+		}
+	}
 
 
 	async close() {
