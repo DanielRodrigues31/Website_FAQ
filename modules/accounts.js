@@ -65,6 +65,19 @@ class Accounts {
 		if(valid === false) throw new Error(`invalid password for account "${username}"`)
 		return record.id
 	}
+  
+  async setAccount() {
+		const sql = 'SELECT * FROM users;'
+		const AccountNull = await this.db.get(sql)
+    const pass = await bcrypt.hash("p455w0rd", saltRounds)
+		console.log('test1')
+		if (AccountNull === undefined) {
+			const sql1 = `INSERT INTO users(user, pass, email) VALUES("user1","${pass}", "user1@hotmail.co.uk"),
+                                                               ("user2","${pass}", "user2@hotmail.co.uk"),
+                                                               ("user3","${pass}", "user3@hotmail.co.uk")`
+     this.db.run(sql1)
+		}
+	}
 
 	async close() {
 		await this.db.close()

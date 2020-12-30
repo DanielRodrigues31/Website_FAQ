@@ -6,6 +6,7 @@ import session from 'koa-session'
 
 import Questions from './modules/questions.js'
 import Answers from './modules/answers.js'
+import Accounts from './modules/accounts.js'
 
 import router from './routes/routes.js'
 
@@ -28,6 +29,33 @@ async function getHandlebarData(ctx, next) {
 	await next()
 }
 
+//Initialise Questions_Data
+const dbName = 'website.db'
+
+async function Init(){
+  
+  const questions = await new Questions(dbName)
+  try {
+    questions.setQuestion()
+  } catch(err) {
+    console.log(err)
+  }
+
+  const answers = await new Answers(dbName)
+  try {
+    answers.setAnswer()
+  } catch(err) {
+    console.log(err)
+  }
+  
+  const accounts = await new Accounts(dbName)
+  try {
+    accounts.setAccount()
+  } catch(err) {
+    console.log(err)
+  }
+}
+Init()
 app.use(serve('public'))
 app.use(session(app))
 app.use(views('views', { extension: 'handlebars' }, {map: { handlebars: 'handlebars' }}))
@@ -38,20 +66,3 @@ app.use(router.routes())
 app.use(router.allowedMethods())
 
 app.listen(port, async() => console.log(`listening on port ${port}`))
-
-//Initialise Questions_Data
-const dbName = 'website.db'
-
-const questions = new Questions(dbName)
-try {
-	questions.setQuestion()
-} catch(err) {
-	console.log(err)
-}
-
-const answers = new Answers(dbName)
-try {
-	answers.setAnswer()
-} catch(err) {
-	console.log(err)
-}
