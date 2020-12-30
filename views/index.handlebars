@@ -24,11 +24,30 @@
 				<p class="msg">{{msg}}</p>
 			</aside>
 		{{/if}}
-	<main>
-		<p>This is the home page. Users can see it without logging in.</p>
-		{{#if authorised}}
-			<p><a href="/secure">secure page</a></p>
-		{{/if}}
-	</main>
+	<section>
+      <div class="container">
+        <div class="accordion">
+          {{#each records }}
+          <div class="faq-item" id="question{{this.id}}">
+            <a class="faq-link" href="#question{{this.id}}">
+             <h4>{{this.title}}</h4> 
+            </a>
+            <div class="answer">
+              <h5>
+                <img src="avatars/{{this.photo}}" />
+                {{this.firstname}} {{this.lastname}}
+              </h5>
+              <p>
+                {{this.summary}}
+              </p>
+              <p>
+                Status:  {{this.status}}
+              </p>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+		</section>
 	</body>
 </html>

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+set -e # abort script at first error
+
+echo "PREPARE-COMMIT-MSG"
+
+COMMIT_MSG_FILE=$1
+
+#echo "default commit message" > "$COMMIT_MSG_FILE"
+
+#runs unit tests which if it doesnt pass will abort
+npm run test || exit 1
+
+#runs linter which if it doesnt pass will abort
+./node_modules/.bin/eslint . || exit 1
+
+
+#stores each line of input as their related SWW format element 
+read -p "Summary: " Summary < /dev/tty
+read -p "Why: " Why < /dev/tty
+read -p "What: " What < /dev/tty
+#Stores variable character length
+SummarySize=${#Summary}
+WhySize=${#Why}
+WhatSize=${#What}
+#stores it all in 1 variable if character length conditions are met
+
+#the conditions are if the sizes are equal or less or more than the hard coded integers
+
+if (($SummarySize <= 150)) && (($WhySize <= 500)) && (($WhatSize <= 5000)) && (($SummarySize >= 0)) && (($WhySize >= 0)) && (($WhatSize >= 0))
+then
+   echo -e "$Summary \n $Why \n $What" > "$COMMIT_MSG_FILE"
+   echo $COMMIT_MSG_FILE
+else
+  echo "Format too long!"
+fi

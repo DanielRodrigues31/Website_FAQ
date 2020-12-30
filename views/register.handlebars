@@ -20,22 +20,22 @@
 				<p class="msg">{{msg}}</p>
 			</aside>
 		{{/if}}
-		<main>
+		<section>
 		<form action="/register" enctype="multipart/form-data" method="post">
 			<p>
-				<label for="user">Username</label><br />
+				<label for="user"><h4>Username</h4></label><br />
 				<input type="text" name="user" placeholder="your preferred username (no spaces)" value="{{body.user}}">
 			</p>
 			<p>
-				<label for="pass">Password</label><br />
+				<label for="pass"><h4>Password</h4></label><br />
 				<input type="password" name="pass" placeholder="your chosen password" value="{{body.pass}}">
 			</p>
 			<p>
-				<label for="email">Email</label><br />
+				<label for="email"><h4>Email</h4></label><br />
 				<input type="email" name="email" placeholder="a valid email address" value="{{body.email}}">
 			</p>
 			<p><input type="submit" value="Create"></p>
 		</form>
-		</main>
+		</section>
 	</body>
 </html>

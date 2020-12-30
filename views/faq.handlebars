@@ -4,7 +4,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Home Page</title>
+		<title>FAQ - Questions</title>
 		<meta name="description" content="form to add new books">
 		<meta name="author" content="Mark Tyers">
 		<link href="{{host}}/style.css" type="text/css" rel="stylesheet" />
@@ -12,7 +12,7 @@
 	</head>
 	<body>
 		<header>
-		<h1>Secure Page</h1>
+		<h1>FAQ</h1>
 		<a href="/logout">Log out</a>
 		</header>
 		{{#if msg}}
@@ -20,9 +20,30 @@
 				<p class="msg">{{msg}}</p>
 			</aside>
 		{{/if}}
-		<main>
-    <table>
-      
-		</main>
+		<section>
+      <a class="post" href="/faq/post">New Question</a>
+      <div class="container">
+        <div class="accordion">
+          {{#each records }}
+          <div class="faq-item" id="question{{this.id}}">
+            <a class="faq-link" href="#question{{this.id}}">
+             <h4>{{this.title}}</h4> 
+            </a>
+            <div class="answer">
+              <h5>
+                {{this.summary}}
+              </h5>
+              <p>
+                {{this.description}}
+              </p>
+              <p>
+                <a href="faq/answer/{{this.id}}">answer</a>
+              </p>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+		</section>
 	</body>
 </html>

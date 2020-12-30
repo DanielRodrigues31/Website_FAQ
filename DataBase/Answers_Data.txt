@@ -1,0 +1,6 @@
+INSERT INTO answers(questionid, answer)
+   Values(1, "All communal areas"),(1, "Check the university policy"),(1, "You must wear PPE on all university grounds"),
+         (2, "2m rule"),(2, "Try not to make physical contact with other students to reduce spread"),(2, "At desks stay sitted behind plastic barriers"), 
+         (3, "Yes all work will be available online"),(3,"Video tutorials and lecture slides will be available"),(3, "All work will be available on Aula but not Moodle"),
+         (4, "Yes on your dedicated excel sheet on microsoft teams resources"),(4, "Yes you can choose a specific set time setup by the lecturers"),(4, "You can but choose quickly as the slots fill up fast"),
+         (5, "The University will notify you when information becomes available"),(5, "The government has setup a travel window"),(5, "From the 2nd of December");

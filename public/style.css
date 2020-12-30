@@ -2,6 +2,7 @@
 body {
 		font-family: Arial, Helvetica, sans-serif;
 		margin: 0;
+    background: #1A1A1D;
 	}
 
 /* formats the red message boxes */
@@ -20,16 +21,21 @@ aside {
 	margin: 2em;
 }
 
+img {
+  width: 100%;
+  border: 2px solid #950740;
+}
+
 header {
-	background-color: #ccc;
-	border-bottom: 5px solid grey;
+	background-color: #1A1A1D;
+	border-bottom: 5px solid #950740;
 	height: 8vw;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4, h5 {
 	margin: 0;
 	padding: 0;
-	color: #444;
+	color: #950740;
 }
 
 h1 {
@@ -37,6 +43,7 @@ h1 {
 	float: left;
 	font-size: 3vw;
 	margin-left: 6vw;
+  padding-bottom: 0.5em;
 }
 
 h2 {
@@ -50,6 +57,19 @@ h3 {
 	margin: 1vw;
 	margin-left: 0.6vw;
 }
+
+h4 {
+  font-size: 1.5vw;
+  margin: 1vw;
+  margin-left: 0.5;
+}
+
+h5 {
+  font-size: 1.25vw;
+  margin: 1.4vw;
+  margin-left: 0.6;
+}
+{}
 
 header > a {
 	margin-top: 3vw;
@@ -71,8 +91,12 @@ p, legend {
 }
 
 main {
-	width: 100%;
-	margin-left: 3vw;
+	max-width: 800px;
+	margin: auto;
+  margin-top: 2em;
+  padding: 2em;
+  box-sizing: border-box;
+  background-color: #232328;
 	/* background-color: pink; */
 }
 
@@ -103,7 +127,6 @@ section {
 	width: 24vw;
 	margin-top: 1vw;
 	padding: 1vw;
-	border-radius: 1vw;
 }
 
 section > p {
@@ -132,6 +155,18 @@ fieldset {
 	padding-top: 4vw;
 }
 
+input::required, textarea:required {
+  border-width: 2px;
+}
+
+input required, textarea:invalid{
+  border-color: red;
+}
+
+input required, textarea:valid{
+  border-color: green;
+}
+
 legend {
 	position:absolute;
   top:0;
@@ -142,19 +177,18 @@ legend {
 	padding: 0.6vw;
 }
 
-input[type="file"] {
+/*input[type="file"] {
 	display: none;
-}
+}*/
 
 input[type="submit"], header > a, .custom-file-upload {
-  background-color: grey;
-  border: 2px solid grey;
-  color: white;
+  background-color: #232328;
+  color: #ffffff;
 	padding: 0.4vw 0.8vw;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-	font-size: 1.5vw;
+	font-size: 1.25vw;
 	/* border-radius: 0.6vw; */
 }
 
@@ -217,20 +251,117 @@ dd {
 table {
 	/* border: 1px solid grey; */
 	border-collapse: collapse;
+  margin: auto;
 }
 
 tr:nth-child(odd) {
-	background: #DDD;
+	background: #232328;
+  text-align: left;
 }
 
-td {
+td, th {
 	/* border: 1px solid grey; */
 	padding: 0.5vw;
 	font-size: 1.5vw;
 	width: 25vw;
+  color: #950740;
 }
 
-td:last-child {
+td:last-child, th:last-child {
 	width: 10vw;
-	text-align: right;
+	text-align: center;
 }
+
+::before,
+::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html{
+  font-size: 9px;
+  font-family: 'Circular', sans-serif;
+  box-sizing: border-box;
+}
+
+section{
+  background-color: #1A1A1D;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  margin: 0rem;
+  align-items: top;
+  justify-content: center;
+}
+
+.faq-item:target .answer{
+  max-height: 30rem;
+}
+
+.faq-item:target .faq-link .chevron-up{
+  display: none;
+}
+
+.container{
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+
+.faq-link .chevron-up{
+  display: none;
+}
+
+.faq-item{
+  background-color: #232328;
+  padding: 0.4rem;
+  border-radius: .4rem;
+  margin-bottom: 1rem;
+  box-shadow: .5rem 2px .5rem rgba(0,0,0,.1)
+}
+
+.faq-link{
+  background-color: #232328;
+  width: 100%;
+  display: flex;
+  font-size: 1.5rem;
+  color: rgba(255,255,255,.8);
+  text-decoration: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.faq-link i{
+  color: #b784ed;
+  padding: .5rem;
+}
+
+.answer::before{
+  height: 90%;
+  background-color: #950740;
+  content: "";
+  position: absolute;
+  width: .6rem;
+  top: 50%;
+  left: 0;
+  transform: translatey(-50%);
+}
+
+.answer p{
+  padding: 1.1rem;
+  font-size: 1.5rem;
+  color: rgba(255,255,255,.6);
+}
+
+.answer{
+  background-color: #1A1A1D;
+  max-height: 0;
+  overflow: hidden;
+  position: relative;
+  transition: max-height 850ms;
+}
+

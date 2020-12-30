@@ -6,6 +6,7 @@ const router = new Router()
 router.use(bodyParser({multipart: true}))
 
 import Accounts from '../modules/accounts.js'
+import Questions from '../modules/questions.js'
 const dbName = 'website.db'
 
 /**
@@ -15,10 +16,14 @@ const dbName = 'website.db'
  * @route {GET} /
  */
 router.get('/', async ctx => {
+	const questions = await new Questions(dbName) // stores Questions with the database inputted as a const
 	try {
-		await ctx.render('index', ctx.hbs)
+		const records = await questions.all()
+		console.log(records)
+		ctx.hbs.records = records // sets the handlebars to records
+		await ctx.render('index', ctx.hbs) // renders index page
 	} catch(err) {
-		await ctx.render('error', ctx.hbs)
+		await ctx.render('error', ctx.hbs) // renders error page
 	}
 })
 
@@ -63,8 +68,10 @@ router.post('/login', async ctx => {
 	ctx.hbs.body = ctx.request.body
 	try {
 		const body = ctx.request.body
-		await account.login(body.user, body.pass)
-		ctx.session.authorised = true
+		const id = await account.login(body.user, body.pass)
+		ctx.session.authorised = true //sets authorisation to true
+		ctx.session.user = body.user //stores current userid
+		ctx.session.userid = id
 		const referrer = body.referrer || '/faq'
 		return ctx.redirect(`${referrer}?msg=you are now logged in...`)
 	} catch(err) {
@@ -77,6 +84,8 @@ router.post('/login', async ctx => {
 
 router.get('/logout', async ctx => {
 	ctx.session.authorised = null
+	delete ctx.session.user
+	delete ctx.session.userid
 	ctx.redirect('/?msg=you are now logged out')
 })
 
