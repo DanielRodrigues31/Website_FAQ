@@ -2,9 +2,9 @@ name: Linter
 
 on:
   push:
-    branches: ['none']
+    branches: ['feature2']
   pull_request:
-    branches: ['none']
+    branches: ['feature2']
 jobs:
   Linter:
     runs-on: ubuntu-latest
