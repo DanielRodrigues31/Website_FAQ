@@ -42,16 +42,16 @@ app.listen(port, async() => console.log(`listening on port ${port}`))
 //Initialise Questions_Data
 const dbName = 'website.db'
 
-const questions = await new Questions(dbName)
+const questions = new Questions(dbName)
 try {
-  questions.setQuestion()
+	questions.setQuestion()
 } catch(err) {
-  console.log(err)
+	console.log(err)
 }
 
-const answers = await new Answers(dbName)
+const answers = new Answers(dbName)
 try {
-  answers.setAnswer()
+	answers.setAnswer()
 } catch(err) {
-  console.log(err)
+	console.log(err)
 }
