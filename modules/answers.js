@@ -27,14 +27,12 @@ class Answers {
 		})()
 	}
 
-	//async all()
-	//{
-	//const sql = `SELECT answers.answer, questions.* FROM questions WHERE questions.id = answers.id`
-	//const answers = await this.db.all(sql)
-
-	// return answers
-	//}
-
+	/**
+    *Returns all fields within a single record from answers table
+    *@function getByID
+    *@param {integer} enters id integer number
+    *@returns {string} returns row of elements depending on the ID that matches questionid and user.id
+  */
 	async getByID(id) {
 		try {
 			const sql = `SELECT users.user, answers.* FROM answers, users\
@@ -47,7 +45,13 @@ class Answers {
 			throw err
 		}
 	}
-
+  
+  /**
+    *Returns all fields within a single record from answers table
+    *@function getAns
+    *@param {integer} enters id integer number
+    *@returns {datatype} returns row of elements depending on the ID that matches questionid
+  */
 	async getAns(id) {
 		try {
 			const sql = `SELECT answers.answer FROM answers WHERE answers.questionid = ${id};`
@@ -60,6 +64,13 @@ class Answers {
 			throw err
 		}
 	}
+  
+  /**
+    *Inserts data.questionid and data.answer into the answers sql table
+    *@function postans
+    *@param {string} data can be anything from the questionid or the answer, it usually has a context
+    *@returns {boolean} returns true if the postans function has run successfully 
+  */
 
 	async postans(data) {
 		console.log('POSTANS')
@@ -77,6 +88,13 @@ class Answers {
 		}
 	}
 
+  /**
+    *Reads from the database if the sql table is undefined
+    *@function setAnswer()
+    *@param {void} describe parameter
+    *@returns {boolean} returns true if the function has run successfully 
+  */
+  
 	async setAnswer() {
 		const sql = 'SELECT * FROM answers;'
 		const AnswerNull = await this.db.get(sql)
