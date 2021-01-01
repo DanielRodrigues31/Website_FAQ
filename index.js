@@ -32,6 +32,11 @@ async function getHandlebarData(ctx, next) {
 //Initialise Questions_Data
 const dbName = 'website.db'
 
+  /**
+    *Reads from the all 3 databases if the relevant sql table is undefined
+    *@function Init()
+  */
+
 async function Init() {
 
 	const questions = await new Questions(dbName)

@@ -65,6 +65,12 @@ class Accounts {
 		if(valid === false) throw new Error(`invalid password for account "${username}"`)
 		return record.id
 	}
+  
+  /**
+    *Reads from the database if the sql table is undefined
+    *@function setAccount()
+    *@returns {boolean} returns true if the function has run successfully 
+  */
 
 	async setAccount() {
 		const sql = 'SELECT * FROM users;'
