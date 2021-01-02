@@ -7,6 +7,7 @@ import session from 'koa-session'
 import Questions from './modules/questions.js'
 import Answers from './modules/answers.js'
 import Accounts from './modules/accounts.js'
+import Keywords from './modules/keywords.js'
 
 import router from './routes/routes.js'
 
@@ -32,7 +33,7 @@ async function getHandlebarData(ctx, next) {
 //Initialise Questions_Data
 const dbName = 'website.db'
 
-  /**
+/**
     *Reads from the all 3 databases if the relevant sql table is undefined
     *@function Init()
   */
@@ -40,22 +41,14 @@ const dbName = 'website.db'
 async function Init() {
 
 	const questions = await new Questions(dbName)
+	const answers = await new Answers(dbName)
+	const accounts = await new Accounts(dbName)
+	const keywords = await new Keywords(dbName)
 	try {
 		questions.setQuestion()
-	} catch(err) {
-		console.log(err)
-	}
-
-	const answers = await new Answers(dbName)
-	try {
 		answers.setAnswer()
-	} catch(err) {
-		console.log(err)
-	}
-
-	const accounts = await new Accounts(dbName)
-	try {
 		accounts.setAccount()
+		keywords.setKeywords()
 	} catch(err) {
 		console.log(err)
 	}

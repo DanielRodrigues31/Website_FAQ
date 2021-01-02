@@ -45,8 +45,8 @@ class Answers {
 			throw err
 		}
 	}
-  
-  /**
+
+	/**
     *Returns all fields within a single record from answers table
     *@function getAns
     *@param {integer} enters id integer number
@@ -64,12 +64,12 @@ class Answers {
 			throw err
 		}
 	}
-  
-  /**
+
+	/**
     *Inserts data.questionid and data.answer into the answers sql table
     *@function postans
     *@param {string} data can be anything from the questionid or the answer, it usually has a context
-    *@returns {boolean} returns true if the postans function has run successfully 
+    *@returns {boolean} returns true if the postans function has run successfully
   */
 
 	async postans(data) {
@@ -88,13 +88,13 @@ class Answers {
 		}
 	}
 
-  /**
+	/**
     *Reads from the database if the sql table is undefined
     *@function setAnswer()
     *@param {void} describe parameter
-    *@returns {boolean} returns true if the function has run successfully 
+    *@returns {boolean} returns true if the function has run successfully
   */
-  
+
 	async setAnswer() {
 		const sql = 'SELECT * FROM answers;'
 		const AnswerNull = await this.db.get(sql)

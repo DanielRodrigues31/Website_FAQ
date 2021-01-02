@@ -4,6 +4,7 @@ import sqlite from 'sqlite-async'
 import mime from 'mime-types'
 import fs from 'fs-extra'
 
+
 /**
  * Accounts
  * ES6 module that handles registering accounts and logging in.
@@ -34,12 +35,12 @@ class Questions {
 		})()
 	}
 
-    /**
+	/**
       *Selects all questions from question sql table
       *@function all
       *@returns {datatype} returns all questions
     */
-  
+
 	async all() {
 		const sql = 'SELECT questions.* FROM questions;'
 		const questions = await this.db.all(sql)
@@ -48,14 +49,14 @@ class Questions {
 		}
 		return questions
 	}
-    
-   /**
+
+	/**
     *Returns all fields within a single record from answers table
     *@function getByID
     *@param {integer} enters id integer number
     *@returns {string} returns row of elements depending on the ID that matches questionid
   */
-    
+
 	async getByID(id) {
 		try {
 			const sql = `SELECT questions.* FROM questions WHERE questions.id = ${id};`
@@ -69,13 +70,13 @@ class Questions {
 		}
 	}
 
-  /**
+	/**
     *Returns all fields within a single record from answers table
     *@function getQuestionID
     *@param {integer} enters id integer number
     *@returns {string} returns row of elements depending on the ID that matches questionid and user.id
   */
-  
+
 	async getQuestionID(id) {
 		try {
 			const sql = `SELECT users.user, questions.* FROM questions, users\ 
@@ -89,8 +90,8 @@ class Questions {
 			throw err
 		}
 	}
-  
-  /**
+
+	/**
     * Updates status to answered depending on if the status is unanswered and the row id matches the questionid
     *@function answered
     *@param {integer} data can be anything from the questionid or the answer, it usually has a context
@@ -116,13 +117,13 @@ class Questions {
 		}
 	}
 
-  /**
+	/**
     * Updates status to solved depending on where the row id matches the questionid
     *@function solved
     *@param {integer} data can be anything from the questionid or the answer, it usually has a context
     *@returns {string} returns row of elements depending on the ID that matches questionid
   */
-  
+
 	async solved(data) {
 		try {
 			const sql = `UPDATE questions SET status = "solved" WHERE id = "${data.questionid}"`
@@ -141,13 +142,13 @@ class Questions {
 		}
 	}
 
-  /**
+	/**
     *Inserts the stated data sets into the sql table, filename is the photo and by default status is set to unanswered
     *@function post
     *@param {string} data can be anything from the questionid or the answer, it usually has a context
-    *@returns {boolean} returns true if the postans function has run successfully 
+    *@returns {boolean} returns true if the postans function has run successfully
   */
-  
+
 	async post(data) {
 		console.log('POST')
 		console.log(data)
@@ -172,12 +173,12 @@ class Questions {
 
 	}
 
-  /**
+	/**
     *Reads from the database if the sql table is undefined
     *@function setQuestion()
-    *@returns {boolean} returns true if the function has run successfully 
+    *@returns {boolean} returns true if the function has run successfully
   */
-  
+
 	async setQuestion() {
 		const sql = 'SELECT * FROM questions;'
 		const QuestionNull = await this.db.get(sql)

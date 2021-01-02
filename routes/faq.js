@@ -5,6 +5,8 @@ const router = new Router({ prefix: '/faq' })
 
 import Questions from '../modules/questions.js'
 import Answers from '../modules/answers.js'
+import Keywords from '../modules/keywords.js'
+
 const dbName = 'website.db'
 
 async function checkAuth(ctx, next) {
@@ -37,6 +39,7 @@ router.get('/post' , async ctx => {
 
 router.post('/post', async ctx => {
 	const questions = await new Questions(dbName)
+	const keywords = await new Keywords
 	//stores an instance of the classes as variables
 	try {
 		ctx.request.body.account = ctx.session.userid
@@ -49,6 +52,7 @@ router.post('/post', async ctx => {
 			//request photos file format
 		}
 		await questions.post(ctx.request.body)
+		await keywords.generate(ctx.request.body)
 		return ctx.redirect('/faq?msg=new question posted')
 	} catch(err) {
 		console.log(err)
@@ -61,14 +65,18 @@ router.post('/post', async ctx => {
 router.get('/answer/:id' , async ctx => {
 	const questions = await new Questions(dbName)
 	const answers = await new Answers(dbName)
+	const keywords = await new Keywords(dbName)
 	//stores an instance of the classes as variables
 	try{
 		const faqans = await answers.getAns(ctx.params.id)
 		ctx.hbs.faqans = faqans
+		const faqtag = await keywords.getKeyword(ctx.params.id)
+		ctx.hbs.faqtag = faqtag
 		//creates a reference point in the hbs to the faqans cookie
-		ctx.hbs.question = await questions.getByID(ctx.params.id) //adds question ID to handlebar
-		ctx.hbs.answer = await answers.getByID(ctx.params.id) //adds answer ID to handlebar
+		//ctx.hbs.question = await questions.getByID(ctx.params.id) //adds question ID to handlebar
+		//ctx.hbs.answer = await answers.getByID(ctx.params.id) //adds answer ID to handlebar
 		ctx.session.questionid = await questions.getQuestionID(ctx.params.id) // gets the question id
+		//ctx.hbs.keyword = await keywords.getKeyword(ctx.params.id) // gets keyword id
 		ctx.hbs.id = ctx.params.id
 		ctx.hbs.display = false
 		if (ctx.hbs.question.userid === ctx.session.userid) ctx.hbs.display = true
@@ -132,5 +140,63 @@ router.post('/answer/:id/flag' , async ctx => {
 	}
 })
 
+router.post('/answer/:id/keyword' , async ctx => {
+	//const questions = await new Questions(dbName)
+	// stores Questions as question, this creates a body for it
+	const answers = await new Answers(dbName)
+	// stores Answers as answer, this creates a body for it
+	try{
+		console.log(`record: ${ctx.params.id}`)
+		ctx.request.body.account = ctx.session.userid
+		// gets all the information from the body.account and sets it to the userid
+		ctx.request.body.questionid = ctx.session.questionid
+		// gets all the information from the body.questionid and sets it to the questionid
+		//await keyword.postkeyword(ctx.request.body)
+		// triggers the answered function in the questions class with the information from the body
+		console.log('ctx.request.body : ', ctx.request.body)
+		//redirects to the /faq page with a message posted notifying the user the question is set to solved
+		return ctx.redirect('/faq?msg=questionsolved')
+	} catch(err) {
+		console.log(err)
+		await ctx.render('error', ctx.hbs)
+		// catches an error then renders error page
+	} finally{
+		answers.close()
+	}
+})
+
+router.get('/answer/:id/keyword' , async ctx => {
+	const questions = await new Questions(dbName)
+	const answers = await new Answers(dbName)
+	const keywords = await new Keywords(dbName)
+	//stores an instance of the classes as variables
+	try{
+		const faqans = await answers.getAns(ctx.params.id)
+		ctx.hbs.faqans = faqans
+		const faqtag = await keywords.getKeyword(ctx.params.id)
+		ctx.hbs.faqtag = faqtag
+		//creates a reference point in the hbs to the faqans cookie
+		//ctx.hbs.question = await questions.getByID(ctx.params.id) //adds question ID to handlebar
+		//ctx.hbs.answer = await answers.getByID(ctx.params.id) //adds answer ID to handlebar
+		//ctx.hbs.keyword = await keywords.getKeyword(ctx.params.id)
+
+		/*answerarray = ctx.hbs.answer.split()
+		for(x in answerarray) {
+			if (ctx.hbs.keyword === x ) {
+				ctx.hbs.display1 = true
+			}
+		}*/
+
+		ctx.session.questionid = await questions.getQuestionID(ctx.params.id) // gets the question id
+		ctx.hbs.id = ctx.params.id
+		ctx.hbs.display = false
+		if (ctx.hbs.question.userid === ctx.session.userid) ctx.hbs.display = true
+		await ctx.render('answer', ctx.hbs)
+		return ctx.session.questionid
+	} catch(err) {
+		console.log(err)
+		await ctx.render('error', ctx.hbs)
+	}
+})
 
 export default router
