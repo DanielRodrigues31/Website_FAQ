@@ -28,6 +28,19 @@ class Keywords {
 		})()
 	}
 
+	async all() {
+		console.log('all')
+		try{
+			const sql = 'SELECT keywords.* FROM keywords;'
+			const keywords = await this.db.all(sql)
+			console.log(keywords)
+			return keywords
+		} catch(err) {
+			console.log(err)
+			throw err
+		}
+	}
+
 	async postkeyword(data) {
 		console.log('POSTKEYWORD')
 		console.log(data)

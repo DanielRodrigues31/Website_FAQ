@@ -94,7 +94,9 @@ main {
 	max-width: 800px;
 	margin: auto;
   margin-top: 2em;
-  padding: 2em;
+  margin-bottom: 2em;
+  padding: 1.5em;
+  padding-top: 0.5em;
   box-sizing: border-box;
   background-color: #232328;
 	/* background-color: pink; */
@@ -142,6 +144,19 @@ section > h3 {
 	margin: 0;
 	padding: 0;
 	font-size: 1.8vw;
+}
+
+section b {
+	color: #950740;
+	text-decoration: underline;
+  font-size: 1.25vw;
+  margin: 1.4vw;
+  margin-left: 0.6;
+}
+
+section b:hover {
+	color: black;
+	text-decoration: none;
 }
 
 small {

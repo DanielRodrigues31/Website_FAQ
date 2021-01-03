@@ -108,7 +108,6 @@ class Answers {
 		}
 	}
 
-
 	async close() {
 		await this.db.close()
 	}

@@ -1,10 +1,9 @@
-
 <!doctype html>
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Home Page</title>
+		<title>Keyword - {{keys.keyword}}</title>
 		<meta name="description" content="form to add new books">
 		<meta name="author" content="Mark Tyers">
 		<link href="{{host}}/style.css" type="text/css" rel="stylesheet" />
@@ -12,7 +11,7 @@
 	</head>
 	<body>
 		<header>
-			<h1>Home</h1>
+			<h1>Keyword - {{keys.keyword}}</h1>
 			{{#if authorised}}
 				<a href="/logout">Log out</a>
 			{{else}}
@@ -30,7 +29,7 @@
       <h4>Keywords</h4>
       <tr>
         {{#each keys}}  
-        <td><a class="get" href="/keyword/{{this.keyword}}">{{this.keyword}} {{this.occurances}}</a>
+        <td><a class="get" href="/keyword/{{this.keyword}}">{{this.keyword}}</a>
         {{/each}}
         </tr>
           </main>

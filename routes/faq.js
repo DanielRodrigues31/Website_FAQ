@@ -73,9 +73,9 @@ router.get('/answer/:id' , async ctx => {
 		const faqtag = await keywords.getKeyword(ctx.params.id)
 		ctx.hbs.faqtag = faqtag
 		//creates a reference point in the hbs to the faqans cookie
-		//ctx.hbs.question = await questions.getByID(ctx.params.id) //adds question ID to handlebar
+		ctx.hbs.question = await questions.getByID(ctx.params.id) //adds question ID to handlebar
 		//ctx.hbs.answer = await answers.getByID(ctx.params.id) //adds answer ID to handlebar
-		ctx.session.questionid = await questions.getQuestionID(ctx.params.id) // gets the question id
+		//ctx.session.questionid = await questions.getQuestionID(ctx.params.id) // gets the question id
 		//ctx.hbs.keyword = await keywords.getKeyword(ctx.params.id) // gets keyword id
 		ctx.hbs.id = ctx.params.id
 		ctx.hbs.display = false
@@ -172,31 +172,22 @@ router.get('/answer/:id/keyword' , async ctx => {
 	//stores an instance of the classes as variables
 	try{
 		const faqans = await answers.getAns(ctx.params.id)
-		ctx.hbs.faqans = faqans
+		ctx.hbs.faqans = answers.process(faqans, /*store chosen keyword*/)
 		const faqtag = await keywords.getKeyword(ctx.params.id)
 		ctx.hbs.faqtag = faqtag
 		//creates a reference point in the hbs to the faqans cookie
-		//ctx.hbs.question = await questions.getByID(ctx.params.id) //adds question ID to handlebar
-		//ctx.hbs.answer = await answers.getByID(ctx.params.id) //adds answer ID to handlebar
-		//ctx.hbs.keyword = await keywords.getKeyword(ctx.params.id)
-
-		/*answerarray = ctx.hbs.answer.split()
-		for(x in answerarray) {
-			if (ctx.hbs.keyword === x ) {
-				ctx.hbs.display1 = true
-			}
-		}*/
-
-		ctx.session.questionid = await questions.getQuestionID(ctx.params.id) // gets the question id
+		ctx.hbs.question = await questions.getByID(ctx.params.id) //adds question ID to handlebar
 		ctx.hbs.id = ctx.params.id
 		ctx.hbs.display = false
 		if (ctx.hbs.question.userid === ctx.session.userid) ctx.hbs.display = true
+		//ctx.hbs.displayans = process(ctx.hbs.faqans)
 		await ctx.render('answer', ctx.hbs)
 		return ctx.session.questionid
 	} catch(err) {
 		console.log(err)
 		await ctx.render('error', ctx.hbs)
 	}
-})
+}
+)
 
 export default router

@@ -7,6 +7,7 @@ router.use(bodyParser({multipart: true}))
 
 import Accounts from '../modules/accounts.js'
 import Questions from '../modules/questions.js'
+import Keywords from '../modules/keywords.js'
 const dbName = 'website.db'
 
 /**
@@ -17,11 +18,41 @@ const dbName = 'website.db'
  */
 router.get('/', async ctx => {
 	const questions = await new Questions(dbName) // stores Questions with the database inputted as a const
+	const keywords = await new Keywords(dbName)
 	try {
 		const records = await questions.all()
+		let keys
+		await keywords.all().then(k => {
+			keys = k.map(e => {
+				questions.getNum(e.keyword).then(a => e.occurances = a[0].occurances)
+				return e
+			})
+		})
+		//const occurances = await questions.getNum(keys)
 		console.log(records)
+		//console.log(occurances)
 		ctx.hbs.records = records // sets the handlebars to records
+		ctx.hbs.keys = keys
 		await ctx.render('index', ctx.hbs) // renders index page
+	} catch(err) {
+		await ctx.render('error', ctx.hbs) // renders error page
+	}
+})
+
+router.get('/keyword/:keyword', async ctx => {
+	const questions = await new Questions(dbName) // stores Questions with the database inputted as a const
+	const keywords = await new Keywords(dbName)
+	try {
+		const records = await questions.getFiltered(ctx.params.keyword)
+		console.log(`t:${ records.length}`)
+		const keys = await keywords.all()
+		ctx.hbs.records = records
+		ctx.hbs.keys = keys
+		console.log(records)
+		console.log('route2')
+		console.log(ctx.params)
+		console.log(keys)
+		await ctx.render('keyword', ctx.hbs) // renders index page
 	} catch(err) {
 		await ctx.render('error', ctx.hbs) // renders error page
 	}
@@ -88,5 +119,6 @@ router.get('/logout', async ctx => {
 	delete ctx.session.userid
 	ctx.redirect('/?msg=you are now logged out')
 })
+
 
 export default router
