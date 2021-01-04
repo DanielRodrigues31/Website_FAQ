@@ -126,7 +126,7 @@ class Answers {
 			pass: 'squirtlesquad54327'
 		}})
 
-		const message = {from: 'FAQSERVER54327@gmail.com', to: 'danny.rod31@yahoo.com', subject: `${question.title}`,
+		const message = {from: 'FAQSERVER54327@gmail.com', to: 'FAQSERVER54327@gmail.com', subject: `${question.title}`,
 			text: `Question: ${question.description}\n 
 Answer: ${data.answer}\n 
 https://fast-waters-42231.herokuapp.com/faq/answer/${question.id}\n`
