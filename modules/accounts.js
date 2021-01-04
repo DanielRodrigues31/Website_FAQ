@@ -80,7 +80,9 @@ class Accounts {
 		if (AccountNull === undefined) {
 			const sql1 = `INSERT INTO users(user, pass, email) VALUES("user1","${pass}", "user1@hotmail.co.uk"),
                                                                ("user2","${pass}", "user2@hotmail.co.uk"),
-                                                               ("user3","${pass}", "user3@hotmail.co.uk")`
+                                                               ("user3","${pass}", "user3@hotmail.co.uk"),
+                                                               ("user4","${pass}", "user4@hotmail.co.uk"),
+                                                               ("user5","${pass}", "user5@hotmail.co.uk")`
 			this.db.run(sql1)
 		}
 	}

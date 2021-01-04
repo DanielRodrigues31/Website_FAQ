@@ -2,15 +2,6 @@
 import sqlite from 'sqlite-async'
 import fs from 'fs-extra'
 
-function rndgenerate(list) {
-	const update = []
-	const num = 5
-	for (const i=0; i < num; i++) {
-		update.push(list[Math.floor( Math.random() * list.length)])
-	}
-	return update
-}
-
 class Keywords {
 
 	constructor(dbName = ':memory:') {
@@ -28,6 +19,11 @@ class Keywords {
 		})()
 	}
 
+	/**
+      *Selects all questions from question sql table
+      *@function all
+      *@returns {datatype} returns all questions
+    */
 	async all() {
 		console.log('all')
 		try{
@@ -41,12 +37,19 @@ class Keywords {
 		}
 	}
 
+	/**
+    *Inserts data.questionid and data.keyword into the answers sql table
+    *@function postkeyword
+    *@param {string} data can be anything from the questionid or the answer, it usually has a context
+    *@returns {boolean} returns true if the postkeyword function has run successfully
+  */
+
 	async postkeyword(data) {
 		console.log('POSTKEYWORD')
 		console.log(data)
 		try{
 			const sql = `INSERT INTO keywords(questionid, keyword)\
-                   Values(${data.questionid}, "${data.keyword}")`
+                   Values(${data.questionid}, "${data.user}")`
 			//inserts into the sql table of answers the question id and the answer inserted by the handlebars
 			console.log(sql) // for test purposes
 			await this.db.run(sql) // awaits the sql input before running
@@ -57,27 +60,41 @@ class Keywords {
 		}
 	}
 
-	async generate(data) {
+	/**
+    *generates 5 words depending on the data.description and will insert into keywords sql table
+    *@function generate
+    *@param {string} data can be anything from the questionid or the answer, it usually has a context
+    *@returns {string} update is an array full of strings
+  */
+
+	async generate(data, questionid) {
 		try{
-			const input = data.description.split()
-			const exception = ['.',',',':',';','?','!','(',')','[',']','\'','-','*','/','@','{','}']
+			const input = data.description.split(' ')
 			const list = []
-			for(const x in input) {
-				if (exception.include(x) === false) {
-					list.push(x)
+			let x = 0
+			const condition = 5
+			for (let i=0; i < input.length; i++) {
+				if (x < condition) {
+					list.push(input[i])
+					x++
 				}
 			}
-			const update = rndgenerate(list)
-
-			for (const x in update) {
-				const sql = `INSERT INTO keywords(questionid, keyword) Values(${data.questionid}, "${x}")`
+			for (const x in list) {
+				const sql = `INSERT INTO keywords(questionid, keyword) Values(${questionid}, "${list[x]}")`
 				await this.db.run(sql)
 			}
-			return update
+			return list
 		} catch(err) {
-			throw err
+			//throw err
 		}
 	}
+
+	/**
+    *Returns all fields within a single record from keywords table
+    *@function getKeyword
+    *@param {integer} enters id integer number
+    *@returns {datatype} returns row of elements depending on the ID that matches questionid
+  */
 
 	async getKeyword(id) {
 		try {
@@ -91,6 +108,12 @@ class Keywords {
 			throw err
 		}
 	}
+
+	/**
+    *Reads from the database if the sql table is undefined
+    *@function setKeywords()
+    *@returns {boolean} returns true if the function has run successfully
+  */
 
 	async setKeywords() {
 		const sql = 'SELECT * FROM keywords;'

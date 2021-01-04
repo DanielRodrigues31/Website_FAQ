@@ -222,31 +222,6 @@ class Questions {
 		}
 	}
 
-	/*async process(answer, keyword) {
-		const questionarray = answer.split()
-		const questionobj = { answer: undefined , visible: undefined}
-		for(const x in answerarray) {
-			if (keyword === x ) {
-				answerobj.answer = x
-				answerobj.visible = true
-			}
-		}
-		return answerobj
-	}*/
-
-	/*async process(data){
-    try {
-			const sql = `SELECT questions.* FROM questions WHERE questions.id = ${id};`
-			// gets all elements from questions where the ID is equal to the inputted id
-			console.log(sql)
-			const question = await this.db.get(sql) //gets sql query
-			return question // all fields within a single record
-		} catch(err) {
-			console.log(err)
-			throw err
-		}
-  }*/
-
 	async close() {
 		await this.db.close()
 	}

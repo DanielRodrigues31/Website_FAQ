@@ -39,6 +39,13 @@ router.get('/', async ctx => {
 	}
 })
 
+/**
+ * Unique keyword homepage that filters non relevant questions
+ *
+ * @name keyword page
+ * @route {GET} /keyword/:keyword
+ */
+
 router.get('/keyword/:keyword', async ctx => {
 	const questions = await new Questions(dbName) // stores Questions with the database inputted as a const
 	const keywords = await new Keywords(dbName)
@@ -89,10 +96,24 @@ router.post('/register', async ctx => {
 	}
 })
 
+/**
+ * Renders login page
+ *
+ * @name login Script
+ * @route {get} /login
+ */
+
 router.get('/login', async ctx => {
 	console.log(ctx.hbs)
 	await ctx.render('login', ctx.hbs)
 })
+
+/**
+ * posts login page information
+ *
+ * @name login Script
+ * @route {post} /login
+ */
 
 router.post('/login', async ctx => {
 	const account = await new Accounts(dbName)
@@ -112,6 +133,13 @@ router.post('/login', async ctx => {
 		account.close()
 	}
 })
+
+/**
+ * Renders logout page
+ *
+ * @name login Script
+ * @route {get} /logout
+ */
 
 router.get('/logout', async ctx => {
 	ctx.session.authorised = null

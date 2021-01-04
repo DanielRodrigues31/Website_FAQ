@@ -2,6 +2,7 @@
 
 import sqlite from 'sqlite-async'
 import fs from 'fs-extra'
+import emailer from 'nodemailer'
 
 /**
  * Accounts
@@ -91,7 +92,6 @@ class Answers {
 	/**
     *Reads from the database if the sql table is undefined
     *@function setAnswer()
-    *@param {void} describe parameter
     *@returns {boolean} returns true if the function has run successfully
   */
 
@@ -106,6 +106,39 @@ class Answers {
 				return true
 			})
 		}
+	}
+
+	/**
+    *Emails takes in the following details about data and the id then uses that to get the relevant info
+     from sql and email it to the user
+    *@function email
+    *@param {string, id} data can be anything from the questionid or the answer, it usually has a context
+  */
+
+	async email(data, id) {
+		//const sql = `SELECT users.email FROM users WHERE id= ${id}`
+		//const email = await this.db.get(sql)
+		const sql2 = `SELECT questions.description, questions.title, questions.id FROM questions\
+                  WHERE questions.id = ${id};`
+		const question = await this.db.get(sql2)
+
+		const deliver = emailer.createTransport({service: 'gmail', auth: {user: 'FAQSERVER54327@gmail.com',
+			pass: 'squirtlesquad54327'
+		}})
+
+		const message = {from: 'FAQSERVER54327@gmail.com', to: 'danny.rod31@yahoo.com', subject: `${question.title}`,
+			text: `Question: ${question.description}\n 
+Answer: ${data.answer}\n 
+https://fast-waters-42231.herokuapp.com/faq/answer/${question.id}\n`
+		}
+
+		deliver.sendMail(message, (error, info) => {
+			if (error) {
+				console.log(error)
+			} else {
+				console.log(`Email sent: ${ info.response}`)
+			}
+		})
 	}
 
 	async close() {
