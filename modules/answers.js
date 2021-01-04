@@ -2,6 +2,7 @@
 
 import sqlite from 'sqlite-async'
 import fs from 'fs-extra'
+import emailer from 'nodemailer'
 
 /**
  * Accounts
@@ -27,14 +28,12 @@ class Answers {
 		})()
 	}
 
-	//async all()
-	//{
-	//const sql = `SELECT answers.answer, questions.* FROM questions WHERE questions.id = answers.id`
-	//const answers = await this.db.all(sql)
-
-	// return answers
-	//}
-
+	/**
+    *Returns all fields within a single record from answers table
+    *@function getByID
+    *@param {integer} enters id integer number
+    *@returns {string} returns row of elements depending on the ID that matches questionid and user.id
+  */
 	async getByID(id) {
 		try {
 			const sql = `SELECT users.user, answers.* FROM answers, users\
@@ -48,6 +47,12 @@ class Answers {
 		}
 	}
 
+	/**
+    *Returns all fields within a single record from answers table
+    *@function getAns
+    *@param {integer} enters id integer number
+    *@returns {datatype} returns row of elements depending on the ID that matches questionid
+  */
 	async getAns(id) {
 		try {
 			const sql = `SELECT answers.answer FROM answers WHERE answers.questionid = ${id};`
@@ -60,6 +65,13 @@ class Answers {
 			throw err
 		}
 	}
+
+	/**
+    *Inserts data.questionid and data.answer into the answers sql table
+    *@function postans
+    *@param {string} data can be anything from the questionid or the answer, it usually has a context
+    *@returns {boolean} returns true if the postans function has run successfully
+  */
 
 	async postans(data) {
 		console.log('POSTANS')
@@ -77,6 +89,12 @@ class Answers {
 		}
 	}
 
+	/**
+    *Reads from the database if the sql table is undefined
+    *@function setAnswer()
+    *@returns {boolean} returns true if the function has run successfully
+  */
+
 	async setAnswer() {
 		const sql = 'SELECT * FROM answers;'
 		const AnswerNull = await this.db.get(sql)
@@ -90,6 +108,38 @@ class Answers {
 		}
 	}
 
+	/**
+    *Emails takes in the following details about data and the id then uses that to get the relevant info
+     from sql and email it to the user
+    *@function email
+    *@param {string, id} data can be anything from the questionid or the answer, it usually has a context
+  */
+
+	async email(data, id) {
+		//const sql = `SELECT users.email FROM users WHERE id= ${id}`
+		//const email = await this.db.get(sql)
+		const sql2 = `SELECT questions.description, questions.title, questions.id FROM questions\
+                  WHERE questions.id = ${id};`
+		const question = await this.db.get(sql2)
+
+		const deliver = emailer.createTransport({service: 'gmail', auth: {user: 'FAQSERVER54327@gmail.com',
+			pass: 'squirtlesquad54327'
+		}})
+
+		const message = {from: 'FAQSERVER54327@gmail.com', to: 'FAQSERVER54327@gmail.com', subject: `${question.title}`,
+			text: `Question: ${question.description}\n 
+Answer: ${data.answer}\n 
+https://fast-waters-42231.herokuapp.com/faq/answer/${question.id}\n`
+		}
+
+		deliver.sendMail(message, (error, info) => {
+			if (error) {
+				console.log(error)
+			} else {
+				console.log(`Email sent: ${ info.response}`)
+			}
+		})
+	}
 
 	async close() {
 		await this.db.close()

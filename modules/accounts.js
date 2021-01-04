@@ -66,6 +66,27 @@ class Accounts {
 		return record.id
 	}
 
+	/**
+    *Reads from the database if the sql table is undefined
+    *@function setAccount()
+    *@returns {boolean} returns true if the function has run successfully
+  */
+
+	async setAccount() {
+		const sql = 'SELECT * FROM users;'
+		const AccountNull = await this.db.get(sql)
+		const pass = await bcrypt.hash('p455w0rd', saltRounds)
+		console.log('test1')
+		if (AccountNull === undefined) {
+			const sql1 = `INSERT INTO users(user, pass, email) VALUES("user1","${pass}", "user1@hotmail.co.uk"),
+                                                               ("user2","${pass}", "user2@hotmail.co.uk"),
+                                                               ("user3","${pass}", "user3@hotmail.co.uk"),
+                                                               ("user4","${pass}", "user4@hotmail.co.uk"),
+                                                               ("user5","${pass}", "user5@hotmail.co.uk")`
+			this.db.run(sql1)
+		}
+	}
+
 	async close() {
 		await this.db.close()
 	}

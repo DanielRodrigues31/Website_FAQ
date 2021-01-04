@@ -2,13 +2,18 @@ name: Linter
 
 on:
   push:
-    branches: ['none']
+    branches: ['feature2']
   pull_request:
-    branches: ['none']
+    branches: ['feature2']
 jobs:
   Linter:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - name: Use NodeJS
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
       - name: install the linter
         run: npm install eslint
       - name: run the linter

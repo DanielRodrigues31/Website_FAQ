@@ -1,0 +1,6 @@
+INSERT INTO keywords(questionid, keyword)
+   Values(1, "campus"),(1, "mask"),(1, "where"),
+         (2, "regulations"),(2, "social distancing"),(2, "current"), 
+         (3, "online"),(3, "work"),(3, "able"),
+         (4, "lab"),(4, "times"),(4, "unavailable"),
+         (5, "home"),(5, "travel"),(5, "safest");

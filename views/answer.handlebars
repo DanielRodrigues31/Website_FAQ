@@ -38,6 +38,18 @@
     </main>
    {{#if display}}
     <main>
+      <h4>Keywords</h4>
+      <tr>
+        {{#each faqtag}}  
+        <td><a class="post" href="/faq/answer/{{this.questionid}}/keyword">{{this.keyword}}</a></td>
+        {{/each}}
+        </tr>
+      <form method="post" action="/faq/answer/{{id}}/keyword" enctype="multipart/form-data">
+        <p>
+          <input type="text" name="user" placeholder="Add keyword" value="{{body.user}}" autofocus>
+        </p>
+        <p><input type="submit" value="Submit"></p>
+      </form> 
       <table>
       <form method="post" action="/faq/answer/{{id}}/flag" enctype="multipart/form-data">
         <h4>Answers</h4>
