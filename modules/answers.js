@@ -73,12 +73,12 @@ class Answers {
     *@returns {boolean} returns true if the postans function has run successfully
   */
 
-	async postans(data) {
+	async postans(data, questionid) {
 		console.log('POSTANS')
 		console.log(data)
 		try{
 			const sql = `INSERT INTO answers(questionid, answer)\
-                   Values(${data.questionid}, "${data.answer}")`
+                   Values(${questionid}, "${data.answer}")`
 			//inserts into the sql table of answers the question id and the answer inserted by the handlebars
 			console.log(sql) // for test purposes
 			await this.db.run(sql) // awaits the sql input before running

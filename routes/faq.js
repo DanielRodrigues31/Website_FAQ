@@ -110,6 +110,7 @@ router.get('/answer/:id' , async ctx => {
 		//creates a reference point in the hbs to the faqans cookie
 		ctx.hbs.question = await questions.getByID(ctx.params.id) //adds question ID to handlebar
 		ctx.hbs.id = ctx.params.id
+    ctx.session.questionid = await questions.getQuestionID(ctx.params.id)
 		ctx.hbs.display = false
 		if (ctx.hbs.question.userid === ctx.session.userid) ctx.hbs.display = true
 		await ctx.render('answer', ctx.hbs)
@@ -139,7 +140,7 @@ router.post('/answer/:id' , async ctx => {
 		// gets all the information from the body.account and sets it to the userid
 		ctx.request.body.questionid = ctx.session.questionid
 		// gets all the information from the body.questionid and sets it to the questionid
-		await answers.postans(ctx.request.body)
+		await answers.postans(ctx.request.body, ctx.request.body.questionid)
 		await answers.email(ctx.request.body, ctx.params.id)
 		// triggers the postans function in answers with the information from the body
 		await questions.answered(ctx.request.body)
