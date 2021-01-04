@@ -12,7 +12,7 @@ test('INSERTING QUESTIONS : insert answer into sql', async test => {
 			questionid: 1,
 			answer: 'Yes'}) //inserts test elements examples into sql table
 		//assert
-		test.is(InsertAnswer, true, 'Answer failed to insert')
+		test.is(typeof InsertAnswer, "Number", 'Answer failed to insert')
 		// function tested, expected result, output message
 	} catch(err) {
 		console.log(err)
