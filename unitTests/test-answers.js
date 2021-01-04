@@ -1,7 +1,7 @@
 import test from 'ava'
 import Answers from '../modules/answers.js'
 
-test('INSERTING QUESTIONS : insert answer into sql', async test => {
+/*test('INSERTING QUESTIONS : insert answer into sql', async test => {
 	//arrange
 	test.plan(1)
 	const answer = await new Answers() // stores instance of function as answer
@@ -20,4 +20,4 @@ test('INSERTING QUESTIONS : insert answer into sql', async test => {
 	} finally {
 		answer.close()
 	}
-})
+})*/
